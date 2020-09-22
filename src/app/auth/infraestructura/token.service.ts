@@ -50,7 +50,7 @@ private jwtdto: JwtDTO;
   }
 
 
-  hasRole(role: string): boolean {
+  public hasRole(role: string): boolean {
 
     this.roles = this.getAuthorities();
     if (this.roles.includes(role)) {

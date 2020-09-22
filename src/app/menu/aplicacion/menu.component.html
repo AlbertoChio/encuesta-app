@@ -6,7 +6,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item" *ngIf="isLogged">
-          <a class="nav-link" routerLink="lista/surveys"><fa-icon [icon]="faListAlt"></fa-icon>Lista</a>
+          <a class="nav-link" [routerLink]="['/survey/lista']" ><fa-icon [icon]="faListAlt"></fa-icon>Lista</a>
         </li>
         <li class="nav-item" *ngIf="!isLogged">
             <a class="nav-link"  routerLink="/login"><fa-icon [icon]="faDoorOpen"></fa-icon> Iniciar Sesión</a>

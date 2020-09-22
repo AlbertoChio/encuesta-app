@@ -6,13 +6,13 @@ export class Question {
  questionName:String;
  questionNumber:number;
  questionText:String;
- questionCategory: Category;
+ category: Category;
 
 constructor(questionAnswerRequired: Boolean, questionName: String, questionNumber: number, questionText: String, questionCategory: Category) {
 		this.questionAnswerRequired = questionAnswerRequired;
 		this.questionName = questionName;
 		this.questionNumber = questionNumber;
 		this.questionText = questionText;
-		this.questionCategory = questionCategory;
+		this.category = questionCategory;
 }
 }

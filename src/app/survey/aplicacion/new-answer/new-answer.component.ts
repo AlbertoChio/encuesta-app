@@ -13,7 +13,9 @@ import { Survey } from '../../dominio/survey';
 })
 export class NewAnswerComponent implements OnInit {
 
-  survey: Survey = null;
+  survey: Survey;
+
+
 
   constructor(
     private surveyService: SurveyService,
@@ -28,7 +30,7 @@ export class NewAnswerComponent implements OnInit {
     this.surveyService.surveyuserParticipantRequestSurvey(surveyname).subscribe(
       data => {
         this.survey = data;
-
+      
       },
       err => {
         this.survey = null;
