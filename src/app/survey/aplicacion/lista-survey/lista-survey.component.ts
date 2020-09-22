@@ -17,7 +17,7 @@ export class ListaSurveyComponent implements OnInit {
   constructor(
     private surveyService: SurveyService,
     private toastr: ToastrService,
-    public tokenService: TokenService,
+    private tokenService: TokenService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
