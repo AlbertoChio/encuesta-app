@@ -12,6 +12,10 @@
   </div>
 </div>
 
+<div *ngFor="let segmentation of survey.segmentations">
+  {{ segmentation.segmentationName }}
+</div>
+
 <div class="container">
 
       <h5 attr.aria-label="Product details for {{survey?.surveyName}}" id="sq_100_ariaTitle">

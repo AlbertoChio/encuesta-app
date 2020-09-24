@@ -12,10 +12,8 @@ import { Survey } from '../../dominio/survey';
   styleUrls: ['./new-answer.component.css']
 })
 export class NewAnswerComponent implements OnInit {
-
-  survey: Survey;
-
-
+  objectKeys = Object.keys;
+  survey: any;
 
   constructor(
     private surveyService: SurveyService,
@@ -29,8 +27,9 @@ export class NewAnswerComponent implements OnInit {
     const surveyname = this.activatedRoute.snapshot.params.surveyname;
     this.surveyService.surveyuserParticipantRequestSurvey(surveyname).subscribe(
       data => {
-        this.survey = data;
-      
+        this.survey= new Survey(data['surveyDescription'],data['surveyExitMessage'],data['surveyExpirationDate'],data['surveyName'],data['surveyPublicationDate'],data['surveyStartDate'],data['surveyWelcomeMessage'],data['questions'],data['segmentations']);
+        console.log(this.survey.segmentations)
+
       },
       err => {
         this.survey = null;
