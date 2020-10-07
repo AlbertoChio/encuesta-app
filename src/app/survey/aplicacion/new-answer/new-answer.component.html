@@ -11,10 +11,24 @@
     <p class="lead">{{survey?.surveyDescription}}</p>
   </div>
 </div>
-
-<div *ngFor="let segmentation of survey.segmentations">
-  {{ segmentation.segmentationName }}
+<div *ngIf="survey?.segmentations">
+  hola
 </div>
+<div *ngFor="let segmentation of survey?.segmentations">
+  {{ segmentation?.segmentationName }}
+</div>
+
+<!--Using ng-option and for loop-->
+
+<div *ngFor="let segmentation of survey?.segmentations">
+  <ng-select [(ngModel)]="selectedCar">
+     <ng-option *ngFor="let segmentationitem of segmentation.segmentationitems" [value]="segmentationitem.segmentationitemId">{{segmentationitem.segmentationitemName}}</ng-option>
+  </ng-select>
+</div>
+
+
+
+<!--Using items input-->
 
 <div class="container">
 

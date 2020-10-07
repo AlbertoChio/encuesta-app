@@ -5,12 +5,12 @@ import { Survey } from '../../dominio/survey';
 import { SurveyService } from '../../infraestructura/survey.service';
 import { TokenService } from 'src/app/auth/infraestructura/token.service';
 
-
 @Component({
   selector: 'app-lista-survey',
   templateUrl: './lista-survey.component.html',
   styleUrls: ['./lista-survey.component.css']
 })
+
 export class ListaSurveyComponent implements OnInit {
   today= new Date();
   jstoday = '';
@@ -31,19 +31,21 @@ export class ListaSurveyComponent implements OnInit {
   }
 
   cargarSurveys(): void {
-    this.surveyService.lista().subscribe(
-      data => {
-        this.surveys = data;
-      },
-      err => {
-        this.surveys = null;
-        console.log(err);
-      }
-    );
+    this.surveyService
+        .lista()
+        .subscribe(
+          data => {
+            console.log(data);
+            this.surveys = data;
+          },
+          err => {
+            this.surveys = null;
+            console.log(err);
+          }
+        );
   }
 
   hasRole(role: string): boolean {
-
     this.roles = this.tokenService.getAuthorities();
     if (this.roles.includes(role)) {
       console.log(this.roles);
@@ -51,5 +53,4 @@ export class ListaSurveyComponent implements OnInit {
     }
     return false;
   }
-
 }
