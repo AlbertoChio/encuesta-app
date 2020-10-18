@@ -29,6 +29,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSelectModule } from '@angular/material/select';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 
 
 registerLocaleData(localeES, 'es');
@@ -44,7 +45,7 @@ registerLocaleData(localeES, 'es');
     ListaSurveyComponent,
     NewAnswerComponent,
   ],
-  imports: [
+  imports: [ RxReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

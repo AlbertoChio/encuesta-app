@@ -12,12 +12,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let survey of surveys">
-        <td class="text-center">{{survey.surveyName}}</td>
-        <td class="text-center">{{survey.surveyStartDate| date:"EEEE dd, MMMM yyyy"}}</td>
-        <td class="text-center">{{survey.surveyExpirationDate| date:"EEEE dd, MMMM yyyy"}}</td>
+      <tr *ngFor="let surveyparticipant of surveyparticipants">
+        <td class="text-center">{{surveyparticipant.survey.surveyName}}</td>
+        <td class="text-center">{{surveyparticipant.survey.surveyStartDate| date:"EEEE dd, MMMM yyyy"}}</td>
+        <td class="text-center">{{surveyparticipant.survey.surveyExpirationDate| date:"EEEE dd, MMMM yyyy"}}</td>
         <td class="text-center">{{today| date:"EEEE dd, MMMM yyyy hh:mm:ss a"}}</td>
-        <td class="text-center"><button class="btn btn-outline-primary"   routerLink="/surveynewanswer/{{survey.surveyName}}"><i class="far fa-play-circle"></i> Iniciar</button></td>
+        <td class="text-center"><button class="btn btn-outline-primary"   routerLink="/surveynewanswer/{{surveyparticipant.survey.surveyName}}"><i class="far fa-play-circle"></i> Iniciar</button></td>
         <td *ngIf="hasRole('ROLE_ADMIN')"><button class="btn btn-outline-warning"><i class="far fa-edit"></i> Editar</button></td>
         <td *ngIf="hasRole('ROLE_ADMIN')"><button class="btn btn-outline-danger"><i class="far fa-trash-alt"></i> Eliminar</button></td>
       </tr>

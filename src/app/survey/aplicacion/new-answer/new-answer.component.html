@@ -2,8 +2,6 @@
 
 <div class="container bg-white">
 
-
-
 <div class="container">
   <div class="text-center">
     <h1 class="display-4">{{survey?.surveyName}}</h1>
@@ -11,22 +9,79 @@
     <p class="lead">{{survey?.surveyDescription}}</p>
   </div>
 </div>
-<div *ngIf="survey?.segmentations">
-  hola
+
+<pre>{{segmentationitemsg?.value | json }}</pre>
+
+<form [formGroup]="segmentationitemsg" (ngSubmit)="onSubmit(segmentationitemsg.value)">
+<div *ngFor="let formGroup of segmentationitemsg.controls['segmentationitems']['controls'];let i = index;">
+<div [formGroup]="formGroup" >
+     <div>
+       <div class="form-group">
+         <div>
+
+         <mat-form-field   appearance="fill">
+           <mat-label>{{survey.segmentations[i].segmentationName}}</mat-label>
+
+             <mat-select formControlName="segmentationitemId">
+               <mat-option  *ngFor="let item of survey.segmentations[i].segmentationitems" [value]="item.segmentationitemId">
+                 {{ item.segmentationitemName}}
+               </mat-option>
+             </mat-select>
+       </mat-form-field>
+       </div>
+       </div>
+     </div>
+     <small class="form-text text-danger" *ngIf="segmentationitemsg.controls['segmentationitems']['controls'][0].errors">
+       {{segmentationitemsg.controls['segmentationitems']['controls'][0].errors.range.message}}
+     </small>
 </div>
-<div *ngFor="let segmentation of survey?.segmentations">
-  {{ segmentation?.segmentationName }}
 </div>
+  <button [disabled]="!segmentationitemsg.valid " type="submit" class="btn btn-primary ">Save</button>
+</form>
+<!--
+
+<form  [formGroup]="segmentationitemsg">
+  <div class="col-12"  formArrayName="segmentastionitems">
+    <div >
+      hi
+    </div>
+</div>
+</form>
+
+
+<form  [formGroup]="segmentationitemsg">
+
+
+
+
+
+  <mat-form-field   appearance="fill"  *ngFor="let segmentation of survey.segmentations">
+<mat-label>{{segmentation.segmentationName}}</mat-label>
+<mat-select formControlName="segmentationitemName">
+  <mat-option *ngFor="let item of segmentation.segmentationitems" [value]="item.segmentationitemName">
+    {{item.segmentationitemName}}
+  </mat-option>
+</mat-select>
+</mat-form-field>
+
+</form>
+
+
+<pre>{{segmentationitemsg?.value | json }}</pre>
+QUESTION:  -->
+
+
+
+
+<button class="btn btn-primary">Submit</button>
+
+
+
+
+
 
 <!--Using ng-option and for loop-->
-
-<div *ngFor="let segmentation of survey?.segmentations">
-  <ng-select [(ngModel)]="selectedCar">
-     <ng-option *ngFor="let segmentationitem of segmentation.segmentationitems" [value]="segmentationitem.segmentationitemId">{{segmentationitem.segmentationitemName}}</ng-option>
-  </ng-select>
-</div>
-
-
+<button type="button" (click)="que()" class="btn btn-primary">asdasd</button>
 
 <!--Using items input-->
 

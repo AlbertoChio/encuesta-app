@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Survey } from '../../dominio/survey';
 import { SurveyService } from '../../infraestructura/survey.service';
 import { TokenService } from 'src/app/auth/infraestructura/token.service';
+import { Surveyparticipant } from '../../dominio/surveyparticipant';
 
 @Component({
   selector: 'app-lista-survey',
@@ -14,7 +15,9 @@ import { TokenService } from 'src/app/auth/infraestructura/token.service';
 export class ListaSurveyComponent implements OnInit {
   today= new Date();
   jstoday = '';
-  surveys: Survey[] = [];
+  surveyparticipants:Surveyparticipant[];
+  surveyparticipant:Surveyparticipant;
+  survey: Survey;
   roles: any[];
   constructor(
     private surveyService: SurveyService,
@@ -23,7 +26,9 @@ export class ListaSurveyComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
-
+    this.survey= new Survey("","","","","","","",null,null)
+    this.surveyparticipant= new Surveyparticipant(null,this.survey)
+    this.surveyparticipants=[this.surveyparticipant];
  }
 
   ngOnInit() {
@@ -36,10 +41,11 @@ export class ListaSurveyComponent implements OnInit {
         .subscribe(
           data => {
             console.log(data);
-            this.surveys = data;
+            this.surveyparticipants = data;
+            console.log(this.surveyparticipants)
           },
           err => {
-            this.surveys = null;
+            this.surveyparticipants = null;
             console.log(err);
           }
         );

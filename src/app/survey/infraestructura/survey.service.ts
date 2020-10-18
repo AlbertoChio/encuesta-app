@@ -39,7 +39,7 @@ export class SurveyService {
     return body || {};
   }
 
-  surveyURL = 'http://localhost:8080/api/encuesta/';
+  surveyURL = 'http://localhost:8080/api/aplicaciones/';
 
   public lista() : Observable<any>{
     return this.httpClient.get(this.surveyURL,httpOptions).pipe(
@@ -49,9 +49,19 @@ export class SurveyService {
   }
 
   public surveyuserParticipantRequestSurvey(surveyname: String): Observable<any> {
-    return this.httpClient.get(this.surveyURL + `answer/${surveyname}`,httpOptions).pipe(
+    return this.httpClient.get('http://localhost:8080/api/encuesta/' + `answer/${surveyname}`,httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError)
     );
   }
+
+
+  public surveyuserParticipantSubmitAsnwer(submit): Observable<any> {
+    return this.httpClient.post('http://localhost:8080/api/create/encuesta1',submit).pipe(
+      map(this.extractData),
+      catchError(this.handleError)
+    );
+  }
+
+
 }
