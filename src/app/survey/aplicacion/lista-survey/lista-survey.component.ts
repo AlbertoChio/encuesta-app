@@ -16,8 +16,6 @@ export class ListaSurveyComponent implements OnInit {
   today= new Date();
   jstoday = '';
   surveyparticipants:Surveyparticipant[];
-  surveyparticipant:Surveyparticipant;
-  survey: Survey;
   roles: any[];
   constructor(
     private surveyService: SurveyService,
@@ -26,9 +24,7 @@ export class ListaSurveyComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
-    this.survey= new Survey("","","","","","","",null,null)
-    this.surveyparticipant= new Surveyparticipant(null,this.survey)
-    this.surveyparticipants=[this.surveyparticipant];
+    this.surveyparticipants=[new Surveyparticipant()];
  }
 
   ngOnInit() {

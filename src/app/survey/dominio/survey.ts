@@ -26,17 +26,15 @@ export class Survey {
    @propArray(Segmentation)
    segmentations:Segmentation[];
 
-  constructor(surveyDescription:String,surveyExitMessage: String, surveyExpirationDate: String,
-      surveyName: String, surveyPublicationDate: String, surveyStartDate:String, surveyWelcomeMessage:String,
-      questions:Question[],segmentations:Segmentation[]) {
-        this.surveyDescription = surveyDescription;
-        this.surveyExitMessage = surveyExitMessage;
-        this.surveyExpirationDate = surveyExpirationDate;
-        this.surveyName = surveyName;
-        this.surveyPublicationDate = surveyPublicationDate;
-        this.surveyStartDate = surveyStartDate;
-        this.surveyWelcomeMessage = surveyWelcomeMessage;
-        this.questions = questions;
-        this.segmentations = segmentations;
+  constructor() {
+        this.surveyDescription = null;
+        this.surveyExitMessage = null;
+        this.surveyExpirationDate = null;
+        this.surveyName = null;
+        this.surveyPublicationDate = null;
+        this.surveyStartDate = null;
+        this.surveyWelcomeMessage = null;
+        this.questions = [new Question()];
+        this.segmentations = [new Segmentation()];
   }
 }

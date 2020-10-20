@@ -7,12 +7,13 @@ import { Survey } from '../../dominio/survey';
 import { FormControl, FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { SurveyparticipantHasSegmentationitem } from '../../dominio/surveyparticipant-has-segmentationitem';
+import { ApplicationHasSegmentationitem } from '../../dominio/application-has-segmentationitem';
 import { RxFormBuilder,FormBuilderConfiguration } from '@rxweb/reactive-form-validators';
 import { Segmentation } from '../../dominio/segmentation';
 import { Segmentationitem } from '../../dominio/segmentationitem';
 import { Question } from 'src/app/question/dominio/question';
 import { Category } from 'src/app/question/dominio/category';
+import { Application } from '../../dominio/application';
 
 @Component({
   selector: 'app-new-answer',
@@ -20,14 +21,9 @@ import { Category } from 'src/app/question/dominio/category';
   styleUrls: ['./new-answer.component.css']
 })
 export class NewAnswerComponent implements OnInit {
-  segmentationitemsg : FormGroup;
+  applicationg : FormGroup;
   survey: Survey;
-  surveyparticipantHasSegmentationitem:SurveyparticipantHasSegmentationitem;
-  segmentationitems: Segmentationitem[]=[];
-  segmetationitem:Segmentationitem;
-  questions:Question[];
-  question:Question;
-  category:Category;
+  application:Application;
 
   constructor(
     private surveyService: SurveyService,
@@ -37,31 +33,41 @@ export class NewAnswerComponent implements OnInit {
     private tokenService: TokenService,
     private formBuilder: RxFormBuilder
   ) {
-    this.survey= new Survey("","","","","","","",null,null)
-    this.segmetationitem= new Segmentationitem(null,null);
-    this.segmentationitems.push(this.segmetationitem);
-    this.surveyparticipantHasSegmentationitem=new SurveyparticipantHasSegmentationitem(null);
-    this.surveyparticipantHasSegmentationitem.segmentationitems= [new Segmentationitem(null,null)];
-    this.category=new Category(null,null);
-    this.question= new Question(true,null,null,null,null);
-    this.questions= [this.question]
-    this.segmentationitemsg=this.formBuilder.formGroup(this.surveyparticipantHasSegmentationitem);
+    this.survey= new Survey()
+    //this.segmetationitem= new Segmentationitem();
+    this.application= new Application();
+    //this.segmentationitems.push(this.segmetationitem);
+    //this.applicationHasSegmentationitem=new ApplicationHasSegmentationitem(null);
+    //this.applicationHasSegmentationitem.segmentationitems= [new Segmentationitem()];
+    //this.category=new Category();
+    //this.question= new Question();
+    //this.questions= [this.question]
+    this.applicationg=this.formBuilder.formGroup(this.application);
   }
 
   ngOnInit() {
     const surveyname = this.activatedRoute.snapshot.params.surveyname;
-    this.surveyparticipantHasSegmentationitem.segmentationitems= [];
-    this.segmentationitemsg=this.formBuilder.formGroup(this.surveyparticipantHasSegmentationitem);
+    //this.applicationHasSegmentationitem.segmentationitems= [];
+    //this.segmentationitemsg=this.formBuilder.formGroup(this.applicationHasSegmentationitem);
     this.surveyService.surveyuserParticipantRequestSurvey(surveyname).subscribe(
       data => {
-      this.survey= new Survey(data['surveyDescription'],data['surveyExitMessage'],data['surveyExpirationDate'],data['surveyName'],data['surveyPublicationDate'],data['surveyStartDate'],data['surveyWelcomeMessage'],data['questions'],data['segmentations']);
-      let segmentations = <FormArray>this.segmentationitemsg.controls.segmentationitems;
-      this.questions=this.survey.questions;
+      this.survey.surveyDescription=data['surveyDescription']
+      this.survey.surveyExitMessage=data['surveyExitMessage']
+      this.survey.surveyExpirationDate=data['surveyExpirationDate']
+      this.survey.surveyName=data['surveyName']
+      this.survey.surveyPublicationDate=data['surveyPublicationDate']
+      this.survey.surveyStartDate=data['surveyStartDate']
+      this.survey.surveyWelcomeMessage=data['surveyWelcomeMessage']
+      this.survey.questions=data['questions']
+      this.survey.segmentations=data['segmentations']
+
+      //let segmentations = <FormArray>this.segmentationitemsg.controls.segmentationitems;
+      //this.questions=this.survey.questions;
       this.survey.segmentations.forEach((element,index) => {
-      segmentations.push(this.formBuilder.formGroup(new Segmentationitem(-1,null)));
+      //segmentations.push(this.formBuilder.formGroup(new Segmentationitem()));
 
       });
-      segmentations.push(this.formBuilder.formGroup(this.questions));
+
       },
       err => {
         this.survey = null;
@@ -77,7 +83,7 @@ export class NewAnswerComponent implements OnInit {
 //chilo.push(this.formBuilder.formGroup(Hobby));
 que(){
   //console.log(this.survey);
-  console.log(this.segmentationitemsg);
+  console.log(this.applicationg);
 }
 
 onSubmit(customerData) {

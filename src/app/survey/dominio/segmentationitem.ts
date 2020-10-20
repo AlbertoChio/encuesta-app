@@ -7,8 +7,8 @@ export class Segmentationitem {
 @prop()
   segmentationitemName:String;
 
-  constructor(segmentationitemId:number,segmentationitemName:String){
-    this.segmentationitemId=segmentationitemId;
-    this.segmentationitemName=segmentationitemName
+  constructor(){
+    this.segmentationitemId=null;
+    this.segmentationitemName=null;
   }
 }

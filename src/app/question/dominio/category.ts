@@ -6,8 +6,8 @@ export class Category {
     @prop()
   categoryName: String;
 
-  constructor(categoryId:number,categoryName:String){
-    this.categoryId=categoryId;
-    this.categoryName=categoryName;
+  constructor(){
+    this.categoryId=null;
+    this.categoryName=null;
   }
 }

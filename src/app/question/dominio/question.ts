@@ -15,11 +15,11 @@ export class Question {
    @prop()
  category: Category;
 
-constructor(questionAnswerRequired: Boolean, questionName: String, questionNumber: number, questionText: String, questionCategory: Category) {
-		this.questionAnswerRequired = questionAnswerRequired;
-		this.questionName = questionName;
-		this.questionNumber = questionNumber;
-		this.questionText = questionText;
-		this.category = questionCategory;
+constructor() {
+		this.questionAnswerRequired = null;
+		this.questionName = null;
+		this.questionNumber = null;
+		this.questionText = null;
+		this.category = new Category();
 }
 }

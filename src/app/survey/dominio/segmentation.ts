@@ -9,9 +9,9 @@ export class Segmentation {
 
 	segmentationitems:Segmentationitem[];
 
-  constructor(segmentationId:number, segmentationName:String, segmentationitems:Segmentationitem[]) {
-  this.segmentationId = segmentationId;
-  this.segmentationName = segmentationName;
-  this.segmentationitems = segmentationitems;
+  constructor() {
+  this.segmentationId = null;
+  this.segmentationName = null;
+  this.segmentationitems = [new Segmentationitem()];
 }
 }

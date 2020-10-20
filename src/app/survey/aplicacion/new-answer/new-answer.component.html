@@ -10,7 +10,27 @@
   </div>
 </div>
 
-<pre>{{segmentationitemsg?.value | json }}</pre>
+<pre>{{applicationg?.value | json }}</pre>
+
+
+<!--
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <form [formGroup]="segmentationitemsg" (ngSubmit)="onSubmit(segmentationitemsg.value)">
 <div *ngFor="let formGroup of segmentationitemsg.controls['segmentationitems']['controls'];let i = index;">
@@ -38,7 +58,15 @@
 </div>
   <button [disabled]="!segmentationitemsg.valid " type="submit" class="btn btn-primary ">Save</button>
 </form>
-<!--
+
+
+
+
+
+
+
+
+
 
 <form  [formGroup]="segmentationitemsg">
   <div class="col-12"  formArrayName="segmentastionitems">

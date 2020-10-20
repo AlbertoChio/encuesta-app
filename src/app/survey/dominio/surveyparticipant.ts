@@ -1,3 +1,4 @@
+import { Application } from './application';
 import { Survey } from './survey';
 
 export class Surveyparticipant {
@@ -6,8 +7,11 @@ export class Surveyparticipant {
 
   survey:Survey;
 
-constructor(surveyparticipantId:number,survey:Survey){
-  this.surveyparticipantId=surveyparticipantId;
-  this.survey=survey;
+  applications:Application[];
+
+constructor(){
+  this.surveyparticipantId=null;
+  this.survey= new Survey();
+  this.applications= [new Application()]
 }
 }
