@@ -14,6 +14,7 @@ import { Segmentationitem } from '../../dominio/segmentationitem';
 import { Question } from 'src/app/question/dominio/question';
 import { Category } from 'src/app/question/dominio/category';
 import { Application } from '../../dominio/application';
+import { ApplicationHasQuestion } from '../../dominio/application-has-question';
 
 @Component({
   selector: 'app-new-answer',
@@ -24,6 +25,7 @@ export class NewAnswerComponent implements OnInit {
   applicationg : FormGroup;
   survey: Survey;
   application:Application;
+  categorys:String[];
 
   constructor(
     private surveyService: SurveyService,
@@ -34,39 +36,16 @@ export class NewAnswerComponent implements OnInit {
     private formBuilder: RxFormBuilder
   ) {
     this.survey= new Survey()
-    //this.segmetationitem= new Segmentationitem();
     this.application= new Application();
-    //this.segmentationitems.push(this.segmetationitem);
-    //this.applicationHasSegmentationitem=new ApplicationHasSegmentationitem(null);
-    //this.applicationHasSegmentationitem.segmentationitems= [new Segmentationitem()];
-    //this.category=new Category();
-    //this.question= new Question();
-    //this.questions= [this.question]
     this.applicationg=this.formBuilder.formGroup(this.application);
   }
 
   ngOnInit() {
     const surveyname = this.activatedRoute.snapshot.params.surveyname;
-    //this.applicationHasSegmentationitem.segmentationitems= [];
-    //this.segmentationitemsg=this.formBuilder.formGroup(this.applicationHasSegmentationitem);
     this.surveyService.surveyuserParticipantRequestSurvey(surveyname).subscribe(
       data => {
-      this.survey.surveyDescription=data['surveyDescription']
-      this.survey.surveyExitMessage=data['surveyExitMessage']
-      this.survey.surveyExpirationDate=data['surveyExpirationDate']
-      this.survey.surveyName=data['surveyName']
-      this.survey.surveyPublicationDate=data['surveyPublicationDate']
-      this.survey.surveyStartDate=data['surveyStartDate']
-      this.survey.surveyWelcomeMessage=data['surveyWelcomeMessage']
-      this.survey.questions=data['questions']
-      this.survey.segmentations=data['segmentations']
-
-      //let segmentations = <FormArray>this.segmentationitemsg.controls.segmentationitems;
-      //this.questions=this.survey.questions;
-      this.survey.segmentations.forEach((element,index) => {
-      //segmentations.push(this.formBuilder.formGroup(new Segmentationitem()));
-
-      });
+      this.cargarsurvey(data);
+      this.cargarform();
 
       },
       err => {
@@ -79,11 +58,57 @@ export class NewAnswerComponent implements OnInit {
     );
 
 }
-//let chilo = this.userFormGroup.controls.hobbies as FormArray;
-//chilo.push(this.formBuilder.formGroup(Hobby));
+
+cargarsurvey(data){
+  this.survey.surveyDescription=data['surveyDescription']
+  this.survey.surveyExitMessage=data['surveyExitMessage']
+  this.survey.surveyExpirationDate=data['surveyExpirationDate']
+  this.survey.surveyName=data['surveyName']
+  this.survey.surveyPublicationDate=data['surveyPublicationDate']
+  this.survey.surveyStartDate=data['surveyStartDate']
+  this.survey.surveyWelcomeMessage=data['surveyWelcomeMessage']
+  this.survey.categories=data['categories']
+  this.survey.segmentations=data['segmentations']
+}
+
+cargarform(){
+  let segmentations = <FormArray>this.applicationg.controls.segmentationitems;
+  let questions = <FormArray>this.applicationg.controls.applicationHasQuestions;
+  segmentations.removeAt(0);
+  questions.removeAt(0);
+  this.survey.segmentations.forEach((element,index) => {
+  segmentations.push(this.formBuilder.formGroup(new Segmentationitem()));
+  this.applicationg.controls.segmentationitems['controls'][index].controls.segmentationitemId.setValue(-1);
+  });
+
+  this.survey.categories.forEach((element,index) => {
+    element.questions.forEach ((elementt,indexx) => {
+
+      let applicationHasQuestion=new ApplicationHasQuestion();
+
+      applicationHasQuestion.id.questionQuestionId=elementt.questionId;
+      applicationHasQuestion.applicationHasQuestionvalue=-1;
+      questions.push(this.formBuilder.formGroup(applicationHasQuestion));
+      //console.log(this.applicationg.controls.applicationHasQuestions['controls'][indexx].controls.id.controls.questionQuestionId.setValue(elementt.questionId))
+});
+});
+}
+
+getformg(id:number):FormGroup{
+let indx:number;
+  this.applicationg['controls']['applicationHasQuestions']['controls'].forEach((element,index) => {
+
+    if(element['controls']['id']['controls']['questionQuestionId'].value==id){
+        indx=index;
+        //console.log("ids iguales"+ element['controls']['id']['controls']['questionQuestionId'].value+" "+id+" index"+index+" index asignado "+indx+" length"+this.applicationg['controls']['applicationHasQuestions']['controls'].length)
+      }
+
+    });
+return this.applicationg['controls']['applicationHasQuestions']['controls'][indx];
+}
+
 que(){
-  //console.log(this.survey);
-  console.log(this.applicationg);
+  console.log(this.applicationg['controls']['applicationHasQuestions']['controls']);
 }
 
 onSubmit(customerData) {

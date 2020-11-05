@@ -12,14 +12,12 @@ export class Question {
  questionNumber:number;
    @prop()
  questionText:String;
-   @prop()
- category: Category;
+
 
 constructor() {
 		this.questionAnswerRequired = null;
 		this.questionName = null;
 		this.questionNumber = null;
 		this.questionText = null;
-		this.category = new Category();
 }
 }

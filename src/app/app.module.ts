@@ -30,7 +30,11 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatSelectModule } from '@angular/material/select';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
+schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+]
 
 registerLocaleData(localeES, 'es');
 
@@ -59,6 +63,7 @@ registerLocaleData(localeES, 'es');
     NgSelectModule,
     MatButtonModule, MatCheckboxModule, MatToolbarModule, MatChipsModule,MatSelectModule
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA],
   providers: [interceptorProvider,{ provide: LOCALE_ID, useValue: 'es' }],
   bootstrap: [AppComponent]
 })

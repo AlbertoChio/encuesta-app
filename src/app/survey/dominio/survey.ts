@@ -1,6 +1,7 @@
 import { Question } from 'src/app/question/dominio/question';
 import { Segmentation } from './segmentation';
 import { prop, propObject, propArray } from "@rxweb/reactive-form-validators"
+import { Category } from 'src/app/question/dominio/category';
 
 
 
@@ -22,7 +23,8 @@ export class Survey {
 
 	 surveyWelcomeMessage:String;
 
-	 questions:Question[];
+   categories: Category[];
+
    @propArray(Segmentation)
    segmentations:Segmentation[];
 
@@ -34,7 +36,8 @@ export class Survey {
         this.surveyPublicationDate = null;
         this.surveyStartDate = null;
         this.surveyWelcomeMessage = null;
-        this.questions = [new Question()];
+        this.categories = [new Category()];
         this.segmentations = [new Segmentation()];
+
   }
 }
