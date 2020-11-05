@@ -117,15 +117,19 @@ onSubmit(customerData) {
   console.warn('Your order has been submitted', customerData);
   this.surveyService.surveyuserParticipantSubmitAsnwer(customerData).subscribe(
     data => {
-console.log(data);
-
+this.toastr.success('Aplicacion guardada correctamente ', 'OK', {
+  timeOut: 3000, positionClass: 'toast-top-center'
+});
+this.router.navigate(['/survey/lista']);
     },
     err => {
-      this.survey = null;
+      //this.survey = null;
       this.toastr.error(err.error.mensaje, 'Fail', {
         timeOut: 3000,  positionClass: 'toast-top-center',
       });
-       //this.router.navigate(['/']);
+      console.log(err.error.message);
+
+      this.router.navigate(['/']);
     }
   );
 }
