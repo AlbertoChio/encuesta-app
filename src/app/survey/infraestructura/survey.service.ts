@@ -63,5 +63,11 @@ export class SurveyService {
     );
   }
 
+  public surveyuserParticipantRequestSurveyChartInfo(surveyname: String): Observable<any> {
+    return this.httpClient.get('http://localhost:8080/api/encuesta/chart/' + `${surveyname}`, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError)
+    );
+  }
 
 }

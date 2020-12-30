@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponent },
   { path: 'survey/lista', component: ListaSurveyComponent, canActivate: [guard], data: { expectedRol: ['admin', 'user']  } },
-  { path: 'surveynewanswer/:surveyname', component: NewAnswerComponent, canActivate: [guard], data: { expectedRol: ['admin', 'user']  } },
+  { path: 'survey/newanswer/:surveyname', component: NewAnswerComponent, canActivate: [guard], data: { expectedRol: ['admin', 'user']  } },
   { path: 'survey/graficos/:surveyname', component: ChartsComponent, canActivate: [guard], data: { expectedRol: ['admin']  } }
 ];
 

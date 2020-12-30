@@ -72,9 +72,7 @@ export class NewAnswerComponent implements OnInit {
 
       this.survey.categories.forEach((element, index) => {
         element.questions.forEach((elementt, indexx) => {
-
           let applicationHasQuestion = new ApplicationHasQuestion();
-
           applicationHasQuestion.id.questionQuestionId = elementt.questionId;
           applicationHasQuestion.applicationHasQuestionvalue = -1;
           questions.push(this.formBuilder.formGroup(applicationHasQuestion));

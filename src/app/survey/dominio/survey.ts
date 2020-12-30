@@ -3,6 +3,7 @@ import { Segmentation } from './segmentation';
 import { prop, propObject, propArray } from "@rxweb/reactive-form-validators"
 import { Category } from 'src/app/question/dominio/category';
 import { catchError, map } from "rxjs/operators";
+import { Surveyparticipant } from './surveyparticipant';
 
 
 export class Survey {
@@ -28,8 +29,16 @@ export class Survey {
   @propArray(Segmentation)
   segmentations?: Segmentation[];
 
+  allowMultipleApplications?:String;
+
+  surveyparticipants?: Surveyparticipant[];
+
   constructor(data?) {
     if (data) {
+      if(data.surveyparticipants){
+        this.allowMultipleApplications = data.allowMultipleApplications;
+        this.surveyparticipants=data.surveyparticipants;
+      }
       this.surveyDescription = data.surveyDescription;
       this.surveyExitMessage = data.surveyExitMessage;
       this.surveyExpirationDate = data.surveyExpirationDate;
@@ -37,8 +46,8 @@ export class Survey {
       this.surveyPublicationDate = data.surveyPublicationDate;
       this.surveyStartDate = data.surveyStartDate;
       this.surveyWelcomeMessage = data.surveyWelcomeMessage;
-      this.categories = data.categories
-      this.segmentations = data.segmentations
+      this.categories = data.categories;
+      this.segmentations = data.segmentations;
     }
     else {
       this.surveyDescription = null;
@@ -50,7 +59,6 @@ export class Survey {
       this.surveyWelcomeMessage = null;
       this.categories = [new Category()];
       this.segmentations = [new Segmentation()];
-
     }
 
   }

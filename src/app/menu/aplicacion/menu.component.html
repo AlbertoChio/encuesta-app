@@ -1,22 +1,22 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-  <a class="navbar-brand" href="#">ET-Servicios</a>
+  <a class="navbar-brand mat-h2" href="#">ET-Servicios</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item" *ngIf="isLogged">
-        <a class="nav-link" [routerLink]="['/survey/lista']">
+        <a class="nav-link mat-h3" [routerLink]="['/survey/lista']">
           <fa-icon [icon]="faListAlt"></fa-icon>Lista
         </a>
       </li>
       <li class="nav-item" *ngIf="!isLogged">
-        <a class="nav-link" routerLink="/login">
+        <a class="nav-link mat-h3" routerLink="/login">
           <fa-icon [icon]="faDoorOpen"></fa-icon> Iniciar Sesión
         </a>
       </li>
       <li class="nav-item" *ngIf="isLogged" (click)="onLogOut()">
-        <a class="nav-link" style="cursor: pointer;">
+        <a class="nav-link mat-h3" style="cursor: pointer;">
           <fa-icon [icon]="faDoorOpen"></fa-icon> Cerrar Sesión
         </a>
       </li>

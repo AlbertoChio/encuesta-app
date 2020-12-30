@@ -3,21 +3,22 @@
   <table class="table table-dark">
     <thead>
       <tr>
-        <th scope="col">Nombre de la encuesta</th>
-        <th scope="col">Fecha de Inicio</th>
-        <th scope="col">Fecha Fin</th>
-        <th scope="col">current date</th>
-        <th scope="col" *ngIf="isAdmin">Editar</th>
+        <th scope="col"><p class="mat-h3 ">Nombre de la encuesta</p></th>
+        <th scope="col"><p class="mat-h3">Fecha de Inicio</p></th>
+        <th scope="col"><p class="mat-h3">Fecha Fin</p></th>
+        <th scope="col"><p class="mat-h3">current date</p></th>
+        <th scope="col"><p class="mat-h3">Opciones</p></th>
         <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let surveyparticipant of surveyparticipants">
-        <td class="text-center">{{surveyparticipant.survey.surveyName}}</td>
-        <td class="text-center">{{surveyparticipant.survey.surveyStartDate| date:"EEEE dd, MMMM yyyy"}}</td>
-        <td class="text-center">{{surveyparticipant.survey.surveyExpirationDate| date:"EEEE dd, MMMM yyyy"}}</td>
-        <td class="text-center">{{today| date:"EEEE dd, MMMM yyyy hh:mm:ss a"}}</td>
-        <td class="text-center"><button class="btn btn-outline-primary" routerLink="/surveynewanswer/{{surveyparticipant.survey.surveyName}}"><i class="far fa-play-circle"></i> Iniciar</button></td>
+        <td class="text-center"><p class="mat-body">{{surveyparticipant.survey.surveyName}}</p></td>
+        <td class="text-center"><p>{{surveyparticipant.survey.surveyStartDate| date:"EEEE dd, MMMM yyyy"}}</p></td>
+        <td class="text-center"><p>{{surveyparticipant.survey.surveyExpirationDate| date:"EEEE dd, MMMM yyyy"}}</p></td>
+        <td class="text-center"><p>{{today| date:"EEEE dd, MMMM yyyy hh:mm:ss a"}}</p></td>
+        <td class="text-center"><button class="btn btn-outline-primary" routerLink="/survey/newanswer/{{surveyparticipant.survey.surveyName}}"><i class="far fa-play-circle"></i> Iniciar</button></td>
+        <td *ngIf="isAdmin"><button class="btn btn-outline-light" routerLink="/survey/graficos/{{surveyparticipant.survey.surveyName}}" >Gráficos</button></td>
         <td *ngIf="isAdmin"><button class="btn btn-outline-warning"><i class="far fa-edit"></i> Editar</button></td>
         <td *ngIf="isAdmin"><button class="btn btn-outline-danger"><i class="far fa-trash-alt"></i> Eliminar</button></td>
       </tr>

@@ -39,12 +39,26 @@ export class ChartsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.cargarSurvey();
   }
 
 
 
-  cargarsurvey(data) {
-
+  cargarSurvey() : void {
+    const surveyname = this.activatedRoute.snapshot.params.surveyname;
+    this.surveyService
+      .surveyuserParticipantRequestSurveyChartInfo(surveyname)
+      .subscribe(
+        data => {
+          console.log(data)
+          this.survey = new Survey(data);
+          console.log(this.survey)
+        },
+        err => {
+          this.survey = null;
+          console.log(err);
+        }
+      );
   }
 
 

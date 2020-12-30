@@ -1,8 +1,12 @@
-<div>
-  <div>
-    <div style="display: block">
-      <canvas baseChart [datasets]="radarChartData" [options]="radarChartOptions" [labels]="radarChartLabels" [chartType]="radarChartType">
-      </canvas>
-    </div>
+<app-menu></app-menu>
+<div class="container bg-highlight">
+  <div class="d-flex " *ngIf=survey>
+    <div class="p-2 flex-fill bg-light"><p class="mat-h1">Número de participantes</p></div>
+
   </div>
+      <div>
+        <canvas baseChart [datasets]="radarChartData" [options]="radarChartOptions" [labels]="radarChartLabels" [chartType]="radarChartType">
+        </canvas>
+      </div>
+
 </div>
