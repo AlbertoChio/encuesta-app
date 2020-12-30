@@ -10,7 +10,7 @@ const AUTHORITIES_KEY = 'AuthAuthorities';
   providedIn: 'root'
 })
 export class TokenService {
-private jwtdto: JwtDTO;
+  private jwtdto: JwtDTO;
 
   roles: string[] = [];
 

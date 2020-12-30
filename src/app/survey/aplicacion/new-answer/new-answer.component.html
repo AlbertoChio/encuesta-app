@@ -1,14 +1,14 @@
 <app-menu></app-menu>
 <div class="container">
 
-<div class="container">
-  <div class="text-center">
-    <h1 class="display-4">{{survey?.surveyName}}</h1>
-    <p class="lead">{{survey?.surveyDescription}}</p>
+  <div class="container">
+    <div class="text-center">
+      <h1 class="display-4">{{survey?.surveyName}}</h1>
+      <p class="lead">{{survey?.surveyDescription}}</p>
+    </div>
   </div>
-</div>
 
-<!-- QUESTION:
+  <!-- QUESTION:
 
 <pre>{{applicationg?.value | json }}</pre>
 
@@ -17,102 +17,102 @@
 </div>
 
   -->
-<div class="container">
-  <form [formGroup]="applicationg" (ngSubmit)="onSubmit(applicationg.value)" *ngIf="applicationg">
+  <div class="container">
+    <form [formGroup]="applicationg" (ngSubmit)="onSubmit(applicationg.value)" *ngIf="applicationg">
 
-<div class="container">
-<div class="row justify-content-center">
-<div class="d-flex p-2 justify-content-around flex-wrap col-5">
-<ng-container *ngFor="let formGroup of applicationg.controls['segmentationitems']['controls'];let i = index;">
-<div [formGroup]="formGroup" >
-       <div class="form-group">
-         <mat-form-field   appearance="fill">
-           <mat-label>{{survey.segmentations[i].segmentationName}}</mat-label>
-             <mat-select formControlName="segmentationitemId">
-               <mat-option  *ngFor="let item of survey.segmentations[i].segmentationitems" [value]="item.segmentationitemId">
-                 {{ item.segmentationitemName}}
-               </mat-option>
-             </mat-select>
-       </mat-form-field>
-       </div>
-     <small class="form-text text-danger" *ngIf="applicationg.controls['segmentationitems']['controls'][0].errors">
-       {{applicationg.controls['segmentationitems']['controls'][0].errors.range.message}}
-     </small>
-</div>
-</ng-container>
-</div>
-</div>
-</div>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="d-flex p-2 justify-content-around flex-wrap col-5">
+            <ng-container *ngFor="let formGroup of applicationg.controls['segmentationitems']['controls'];let i = index;">
+              <div [formGroup]="formGroup">
+                <div class="form-group">
+                  <mat-form-field appearance="fill">
+                    <mat-label>{{survey.segmentations[i].segmentationName}}</mat-label>
+                    <mat-select formControlName="segmentationitemId">
+                      <mat-option *ngFor="let item of survey.segmentations[i].segmentationitems" [value]="item.segmentationitemId">
+                        {{ item.segmentationitemName}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <small class="form-text text-danger" *ngIf="applicationg.controls['segmentationitems']['controls'][0].errors">
+                  {{applicationg.controls['segmentationitems']['controls'][0].errors.range.message}}
+                </small>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
 
 
-<div class="table-responsive table-body" *ngFor="let category of survey.categories">
-    <table  class="table  table-bordered">
+      <div class="table-responsive table-body" *ngFor="let category of survey.categories">
+        <table class="table  table-bordered">
           <thead>
-              <tr>
-                  <th>
-                    <span>{{category.categoryName}}</span>
-                  </th>
+            <tr>
+              <th>
+                <span>{{category.categoryName}}</span>
+              </th>
 
-                  <th>
-  <span >Strongly Disagree</span>
-                  </th>
-                  <th >
-  <span>Disagree</span>
-                  </th>
-                  <th>
-  <span >Neutral</span>
-                  </th>
-                  <th >
-  <span>Agree</span>
-                  </th>
-                  <th >
-  <span>Strongly Agree</span>
-                  </th>
-              </tr>
+              <th>
+                <span>Strongly Disagree</span>
+              </th>
+              <th>
+                <span>Disagree</span>
+              </th>
+              <th>
+                <span>Neutral</span>
+              </th>
+              <th>
+                <span>Agree</span>
+              </th>
+              <th>
+                <span>Strongly Agree</span>
+              </th>
+            </tr>
           </thead>
-        <tbody >
+          <tbody>
             <tr *ngFor="let question of category.questions;let i = index;">
-                <td >
-                  <span >{{question.questionName}}</span>
-                </td>
-                <ng-container [formGroup]="getformg(question.questionId)" *ngIf="(applicationg['controls']['applicationHasQuestions']['controls'].length>0)">
-                <td  headers="Strongly Disagree">
-                    <label >
-                        <input type="radio" formControlName="applicationHasQuestionvalue" aria-label="Please indicate if you agree or disagree with the following statements" value="1">
-                        <span style="display: none" >Strongly Disagree</span>
-                    </label>
+              <td>
+                <span>{{question.questionName}}</span>
+              </td>
+              <ng-container [formGroup]="getformg(question.questionId)" *ngIf="(applicationg['controls']['applicationHasQuestions']['controls'].length>0)">
+                <td headers="Strongly Disagree">
+                  <label>
+                    <input type="radio" formControlName="applicationHasQuestionvalue" aria-label="Please indicate if you agree or disagree with the following statements" value="1">
+                    <span style="display: none">Strongly Disagree</span>
+                  </label>
                 </td>
 
                 <td headers="Disagree">
-                    <label>
-                        <input type="radio"   formControlName="applicationHasQuestionvalue" aria-label="Please indicate if you agree or disagree with the following statements" value="2" >
-                        <span style="display: none" >Disagree</span>
-                    </label>
+                  <label>
+                    <input type="radio" formControlName="applicationHasQuestionvalue" aria-label="Please indicate if you agree or disagree with the following statements" value="2">
+                    <span style="display: none">Disagree</span>
+                  </label>
                 </td>
                 <td headers="Neutral">
-                    <label  >
-                        <input type="radio"  formControlName="applicationHasQuestionvalue" aria-label="Please indicate if you agree or disagree with the following statements" value="3">
-                        <span style="display: none" >Neutral</span>
-                    </label>
+                  <label>
+                    <input type="radio" formControlName="applicationHasQuestionvalue" aria-label="Please indicate if you agree or disagree with the following statements" value="3">
+                    <span style="display: none">Neutral</span>
+                  </label>
                 </td>
-                <td  headers="Agree">
-                    <label  >
-                        <input type="radio"   formControlName="applicationHasQuestionvalue" aria-label="Please indicate if you agree or disagree with the following statements" value="4" >
-                        <span style="display: none" >Agree</span>
-                    </label>
+                <td headers="Agree">
+                  <label>
+                    <input type="radio" formControlName="applicationHasQuestionvalue" aria-label="Please indicate if you agree or disagree with the following statements" value="4">
+                    <span style="display: none">Agree</span>
+                  </label>
                 </td>
-                <td  headers="Strongly Agree">
-                    <label  >
-                        <input type="radio"  formControlName="applicationHasQuestionvalue" aria-label="Please indicate if you agree or disagree with the following statements" value="5">
-                        <span style="display: none" >Strongly Agree</span>
-                    </label>
+                <td headers="Strongly Agree">
+                  <label>
+                    <input type="radio" formControlName="applicationHasQuestionvalue" aria-label="Please indicate if you agree or disagree with the following statements" value="5">
+                    <span style="display: none">Strongly Agree</span>
+                  </label>
                 </td>
-                </ng-container>
+              </ng-container>
             </tr>
-        </tbody>
-    </table>
-</div>
-  <button class="boton" [disabled]="!applicationg.valid " type="submit" class="btn btn-primary ">Enviar</button>
-</form>
-</div>
+          </tbody>
+        </table>
+      </div>
+      <button class="boton" [disabled]="!applicationg.valid " type="submit" class="btn btn-primary ">Enviar</button>
+    </form>
+  </div>
 </div>

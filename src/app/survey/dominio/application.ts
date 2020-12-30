@@ -4,16 +4,16 @@ import { Segmentationitem } from './segmentationitem';
 
 export class Application {
 
-  idapplication:number;
+  idapplication: number;
 
   @propArray(Segmentationitem)
-  segmentationitems:Segmentationitem[];
+  segmentationitems: Segmentationitem[];
   @propArray(ApplicationHasQuestion)
-  applicationHasQuestions:ApplicationHasQuestion[];
-  constructor(){
-    this.idapplication=null;
-    this.segmentationitems= [new Segmentationitem()]
-    this.applicationHasQuestions=[new ApplicationHasQuestion()]
+  applicationHasQuestions: ApplicationHasQuestion[];
+  constructor() {
+    this.idapplication = null;
+    this.segmentationitems = [new Segmentationitem()]
+    this.applicationHasQuestions = [new ApplicationHasQuestion()]
   }
 
 }

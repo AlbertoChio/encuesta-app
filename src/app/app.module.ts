@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule,LOCALE_ID } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,10 +30,12 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatSelectModule } from '@angular/material/select';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
-import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ChartsComponent } from './survey/aplicacion/charts/charts.component';
+import { ChartsModule } from 'ng2-charts';
 
 schemas: [
-    CUSTOM_ELEMENTS_SCHEMA
+  CUSTOM_ELEMENTS_SCHEMA
 ]
 
 registerLocaleData(localeES, 'es');
@@ -48,8 +50,9 @@ registerLocaleData(localeES, 'es');
     IndexComponent,
     ListaSurveyComponent,
     NewAnswerComponent,
+    ChartsComponent,
   ],
-  imports: [ RxReactiveFormsModule,
+  imports: [RxReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -61,10 +64,11 @@ registerLocaleData(localeES, 'es');
     FormlyModule.forRoot({ extras: { lazyRender: true } }),
     FormlyBootstrapModule,
     NgSelectModule,
-    MatButtonModule, MatCheckboxModule, MatToolbarModule, MatChipsModule,MatSelectModule
+    MatButtonModule, MatCheckboxModule, MatToolbarModule, MatChipsModule, MatSelectModule,
+    FormsModule, ChartsModule
   ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA],
-  providers: [interceptorProvider,{ provide: LOCALE_ID, useValue: 'es' }],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [interceptorProvider, { provide: LOCALE_ID, useValue: 'es' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

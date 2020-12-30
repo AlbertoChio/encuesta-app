@@ -13,10 +13,11 @@ import { Surveyparticipant } from '../../dominio/surveyparticipant';
 })
 
 export class ListaSurveyComponent implements OnInit {
-  today= new Date();
+  today = new Date();
   jstoday = '';
-  surveyparticipants:Surveyparticipant[];
+  surveyparticipants: Surveyparticipant[];
   roles: any[];
+  isAdmin: boolean = false;
   constructor(
     private surveyService: SurveyService,
     private toastr: ToastrService,
@@ -24,27 +25,26 @@ export class ListaSurveyComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
-    this.surveyparticipants=[new Surveyparticipant()];
- }
+    this.surveyparticipants = [new Surveyparticipant()];
+  }
 
   ngOnInit() {
     this.cargarSurveys();
+    this.isAdmin = this.hasRole('ROLE_ADMIN')
   }
 
   cargarSurveys(): void {
     this.surveyService
-        .lista()
-        .subscribe(
-          data => {
-            console.log(data);
-            this.surveyparticipants = data;
-            console.log(this.surveyparticipants)
-          },
-          err => {
-            this.surveyparticipants = null;
-            console.log(err);
-          }
-        );
+      .lista()
+      .subscribe(
+        data => {
+          this.surveyparticipants = data;
+        },
+        err => {
+          this.surveyparticipants = null;
+          console.log(err);
+        }
+      );
   }
 
   hasRole(role: string): boolean {

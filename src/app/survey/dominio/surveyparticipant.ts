@@ -3,15 +3,22 @@ import { Survey } from './survey';
 
 export class Surveyparticipant {
 
-  surveyparticipantId:number;
+  surveyparticipantId?:number;
 
-  survey:Survey;
+  survey?:Survey;
 
-  applications:Application[];
+  applications?:Application[];
 
-constructor(){
-  this.surveyparticipantId=null;
-  this.survey= new Survey();
-  this.applications= [new Application()]
+constructor(data?){
+  if(data){
+    this.surveyparticipantId=null;
+    this.survey= new Survey(data.survey);
+    this.applications= [new Application()]
+  }
+  else{
+    this.surveyparticipantId=null;
+    this.survey= new Survey();
+    this.applications= [new Application()]
+  }
 }
 }

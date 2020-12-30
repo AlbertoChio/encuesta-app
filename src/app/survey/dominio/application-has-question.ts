@@ -5,17 +5,17 @@ import { ApplicationHasQuestionId } from './application-has-question-id';
 export class ApplicationHasQuestion {
 
   @propObject(ApplicationHasQuestionId)
-  id:ApplicationHasQuestionId ;
+  id: ApplicationHasQuestionId;
 
 
-  question:Question;
+  question: Question;
 
   @range({ minimumNumber: 1, maximumNumber: 5 })
-  applicationHasQuestionvalue?:number;
+  applicationHasQuestionvalue?: number;
 
-  constructor(){
-    this.id=new ApplicationHasQuestionId();
-    this.question=new Question();
-    this.applicationHasQuestionvalue=null;
+  constructor() {
+    this.id = new ApplicationHasQuestionId();
+    this.question = new Question();
+    this.applicationHasQuestionvalue = null;
   }
 }

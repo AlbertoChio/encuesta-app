@@ -2,13 +2,13 @@ import { prop } from '@rxweb/reactive-form-validators';
 
 export class ApplicationHasQuestionId {
   @prop()
-  questionQuestionId:number;
+  questionQuestionId: number;
 
   @prop()
-  applicationIdapplication:number;
+  applicationIdapplication: number;
 
-  constructor(){
-    this.questionQuestionId=null;
-    this.applicationIdapplication=null;
+  constructor() {
+    this.questionQuestionId = null;
+    this.applicationIdapplication = null;
   }
 }

@@ -5,13 +5,13 @@ import { Question } from 'src/app/question/dominio/question';
 
 export class ApplicationHasSegmentationitem {
 
-  surveyparticipantId:number;
+  surveyparticipantId: number;
 
   @propArray(Segmentationitem)
-  segmentationitems:Segmentationitem[];
+  segmentationitems: Segmentationitem[];
 
-constructor(segmentationitems :Segmentationitem[]){
-this.surveyparticipantId=null;
-  this.segmentationitems=segmentationitems;
-}
+  constructor(segmentationitems: Segmentationitem[]) {
+    this.surveyparticipantId = null;
+    this.segmentationitems = segmentationitems;
+  }
 }

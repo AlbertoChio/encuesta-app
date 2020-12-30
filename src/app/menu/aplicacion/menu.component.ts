@@ -9,8 +9,8 @@ import { faListAlt } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
- faDoorOpen = faDoorOpen;
- faListAlt = faListAlt;
+  faDoorOpen = faDoorOpen;
+  faListAlt = faListAlt;
   isLogged = false;
 
   constructor(private tokenService: TokenService) { }
