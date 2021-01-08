@@ -48,6 +48,8 @@ export class NewAnswerComponent implements OnInit {
       data => {
         this.survey = new Survey(data)
         this.cargarform();
+        console.log(this.survey);
+
       },
       err => {
         this.survey = null;

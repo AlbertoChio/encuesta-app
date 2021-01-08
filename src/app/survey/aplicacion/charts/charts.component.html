@@ -1,12 +1,70 @@
 <app-menu></app-menu>
-<div class="container bg-highlight">
-  <div class="d-flex " *ngIf=survey>
-    <div class="p-2 flex-fill bg-light"><p class="mat-h1">Número de participantes</p></div>
+<div class="container bg-light">
+  <h1 class="mat-display-1 text-center">Dashboard</h1>
+  <div class="d-flex justify-content-between flex-wrap">
+    <div class="mr-4">
+      <p class="mat-headline">Participación-Encuestado</p>
+    </div>
+    <div class="mr-auto p-2">
+      <canvas baseChart width="270" height="270" [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" [options]="pieChartOptions" [plugins]="pieChartPlugins" [colors]="pieChartColors" [legend]="pieChartLegend">
+      </canvas>
+    </div>
+    <div class="w-100 m-3"></div>
+    <div class="mr-4">
+      <p class="mat-headline">Segmentación-Encuestado</p>
+    </div>
+    <div class="mr-auto p-2 mr-4">
+      <mat-form-field appearance="fill">
+        <mat-label>segmentaciones</mat-label>
+        <mat-select [(value)]="selectedsfilter.id" (selectionChange)="setsegmentationpiechart()">
+          <mat-option [value]="0">
+            none
+          </mat-option>
+          <ng-container *ngFor="let segementacion of survey.segmentations;let i = index;">
+            <mat-option [value]="segementacion.segmentationId">
+              {{ segementacion.segmentationName}}
+            </mat-option>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="">
+      <canvas baseChart width="270" height="270" [data]="spieChartData" [labels]="spieChartLabels" [chartType]="pieChartType" [options]="pieChartOptions" [plugins]="pieChartPlugins" [colors]="spieChartColors" [legend]="pieChartLegend">
+      </canvas>
+    </div>
+    <div class="w-100 m-3"></div>
+    <div class="mr-4">
+      <p class="mat-headline">Segmentación-Categoría</p>
+    </div>
+    <div class="mr-auto p-2 mr-4">
+      <mat-form-field appearance="fill">
+        <mat-label>segmentaciones</mat-label>
+        <mat-select [(value)]="selectedcategoriesfilter[0].id" (selectionChange)="setcategorychart()" multiple>
+          <mat-optgroup *ngFor="let segementacion of survey.segmentations;let i = index;" [label]="segementacion.segmentationName">
 
+            <mat-option *ngFor="let segementacionitem of segementacion.segmentationitems;let i = index;" [value]="segementacionitem.segmentationitemId">
+              {{ segementacionitem.segmentationitemName}}
+            </mat-option>
+          </mat-optgroup>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Categoría</mat-label>
+        <mat-select [(value)]="selectedcategoriesfilter[1].id" (selectionChange)="setcategorychart()">
+          <mat-option [value]="0">
+            none
+          </mat-option>
+          <ng-container *ngFor="let category of survey.categories;let i = index;">
+            <mat-option [value]="category.categoryId">
+              {{ category.categoryName}}
+            </mat-option>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="">
+      <canvas baseChart baseChart width="270" height="270" [colors]="cbarChartColors" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+      </canvas>
+    </div>
   </div>
-      <div>
-        <canvas baseChart [datasets]="radarChartData" [options]="radarChartOptions" [labels]="radarChartLabels" [chartType]="radarChartType">
-        </canvas>
-      </div>
-
 </div>
