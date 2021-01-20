@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChartDataSets, ChartOptions, ChartType, RadialChartOptions } from 'chart.js';
 import { BaseChartDirective, Color, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip, SingleDataSet } from 'ng2-charts';
@@ -111,7 +111,7 @@ export class ChartsComponent implements OnInit {
   public spieChartLegend = true;
   public spieChartPlugins = [pluginDataLabels];
 
-  @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
+  @ViewChildren(BaseChartDirective) charts: QueryList<BaseChartDirective>;
   constructor(
     private surveyService: SurveyService,
     private toastr: ToastrService,
@@ -135,6 +135,7 @@ export class ChartsComponent implements OnInit {
       .surveyuserParticipantRequestSurveyChartInfo(surveyname)
       .subscribe(
         data => {
+          console.log(data)
           this.survey = new Survey(data);
           this.transformsurveydata();
           this.setparticipationpiechart();
@@ -155,11 +156,13 @@ export class ChartsComponent implements OnInit {
   }
 
   public setcategorychart() {
-    console.log(this.selectedcategoriesfilter);
-    if(this.selectedcategoriesfilter[0]['id']['length']>0&&this.selectedcategoriesfilter[1]['id']>0)
-    {
     this.barChartLabels.length = 0
     this.barChartData[0].data.length = 0
+    console.log(this.selectedcategoriesfilter);
+    console.log("cambiando grafico");
+    if(this.selectedcategoriesfilter[0]['id']!=0 && this.selectedcategoriesfilter[1]['id']>0)
+    {
+      console.log("pasó condicional");
     this.selectedcategoriesfilter[1].questions.length = 0
     this.survey.categories.forEach((element) => {
       if (element.categoryId == this.selectedcategoriesfilter[1].id) {
@@ -192,6 +195,7 @@ export class ChartsComponent implements OnInit {
     });
     this.cbarChartColors[0].backgroundColor = this.shuffleArray((this.pieChartColors[0].backgroundColor))
     }
+    this.updateChart() ;
   }
 
   public setsegmentationpiechart() {
@@ -250,4 +254,9 @@ export class ChartsComponent implements OnInit {
     }
     return array;
   }
+  updateChart() {
+    this.charts.forEach((child) => {
+    child.chart.update()
+}); // This re-renders the canvas element.
+}
 }

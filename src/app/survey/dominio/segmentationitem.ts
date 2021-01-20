@@ -1,10 +1,10 @@
-import { prop, propObject, propArray, digit, range } from "@rxweb/reactive-form-validators"
+import { prop, propObject, propArray, digit, range, required } from "@rxweb/reactive-form-validators"
 
 export class Segmentationitem {
 
   @range({ minimumNumber: 0, maximumNumber: 60 })
   segmentationitemId?: number;
-  @prop()
+  @required()
   segmentationitemName: String;
 
   constructor() {

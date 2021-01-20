@@ -7,6 +7,8 @@ import { ListaSurveyComponent } from './survey/aplicacion/lista-survey/lista-sur
 import { ProdGuardService as guard } from './auth/infraestructura/prod-guard.service';
 import { NewAnswerComponent } from './survey/aplicacion/new-answer/new-answer.component';
 import { ChartsComponent } from './survey/aplicacion/charts/charts.component'
+import { NewSurveyComponent } from './survey/aplicacion/new-survey/new-survey.component';
+import { NewSurveyUsersComponent } from './survey/aplicacion/new-survey/new-survey-users.component';
 
 const routes: Routes = [
   { path: '', component: IndexComponent  },
@@ -14,7 +16,9 @@ const routes: Routes = [
   { path: 'registro', component: RegistroComponent },
   { path: 'survey/lista', component: ListaSurveyComponent, canActivate: [guard], data: { expectedRol: ['admin', 'user']  } },
   { path: 'survey/newanswer/:surveyname', component: NewAnswerComponent, canActivate: [guard], data: { expectedRol: ['admin', 'user']  } },
-  { path: 'survey/dashboard/:surveyname', component: ChartsComponent, canActivate: [guard], data: { expectedRol: ['admin']  } }
+  { path: 'survey/dashboard/:surveyname', component: ChartsComponent, canActivate: [guard], data: { expectedRol: ['admin']  } },
+  { path: 'new-survey', component: NewSurveyComponent, canActivate: [guard], data: { expectedRol: ['admin']  } },
+  { path: 'new-survey-users', component: NewSurveyUsersComponent, canActivate: [guard], data: { expectedRol: ['admin']  } }
 ];
 
 @NgModule({

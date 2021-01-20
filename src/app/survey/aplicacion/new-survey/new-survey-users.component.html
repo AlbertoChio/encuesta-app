@@ -1,0 +1,45 @@
+<app-menu></app-menu>
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">
+          <a class="nav-link " routerLink="/new-survey">Datos de Encuesta</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active">Encuestados</a>
+        </li>
+      </ul>
+    </div>
+    <div class="card-body d-flex justify-content-center flex-wrap">
+      <div class="card bg-light m-3" style="max-width: 18rem;">
+        <div class="card-header">Usuarios</div>
+        <div class="card-body flex-fill">
+          <button *ngIf="users.length>0" (click)="selectAllUsers()" class="btn"><i><span class="material-icons">fact_check</span></i></button>
+          <mat-selection-list #usuarios>
+            <mat-list-option *ngFor="let user of users" [value]="user">
+              {{user}}
+            </mat-list-option>
+          </mat-selection-list>
+          <button *ngIf="users.length>0" (click)="transferusers(usuarios)" class="btn"><i><span class="material-icons">forward</span></i></button>
+        </div>
+      </div>
+
+      <div class="card bg-light m-3" style="max-width: 18rem;">
+        <div class="card-header">Registrar</div>
+            <div class="card-body flex-fill">
+              <button *ngIf="surveyedl.length>0" (click)="selectAllSurveyed()" class="btn"><i><span class="material-icons">fact_check</span></i></button>
+              <mat-selection-list #encuestados>
+                <mat-list-option *ngFor="let surveyed of surveyedl" [value]="surveyed">
+                  {{surveyed}}
+                </mat-list-option>
+              </mat-selection-list>
+              <button *ngIf="surveyedl.length>0" (click)="transfersurveyed(encuestados)" class="btn"><i><span class="material-icons">reply</span></i></button>
+          </div>
+        </div>
+  </div>
+</div>
+
+
+
+<!-- QUESTION:<pre>{{surveyg?.value | json}}</pre>  -->

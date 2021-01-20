@@ -4,10 +4,10 @@ import { ApplicationHasQuestionId } from './application-has-question-id';
 
 export class ApplicationHasQuestion {
 
-  @propObject(ApplicationHasQuestionId)
+
   id: ApplicationHasQuestionId;
 
-
+@propObject(Question)
   question: Question;
 
   @range({ minimumNumber: 1, maximumNumber: 5 })

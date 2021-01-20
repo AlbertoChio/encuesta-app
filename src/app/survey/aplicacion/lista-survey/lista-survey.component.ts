@@ -39,6 +39,7 @@ export class ListaSurveyComponent implements OnInit {
       .subscribe(
         data => {
           this.surveyparticipants = data;
+          console.log(data)
         },
         err => {
           this.surveyparticipants = null;

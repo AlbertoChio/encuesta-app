@@ -49,7 +49,6 @@ export class NewAnswerComponent implements OnInit {
         this.survey = new Survey(data)
         this.cargarform();
         console.log(this.survey);
-
       },
       err => {
         this.survey = null;
@@ -70,12 +69,14 @@ export class NewAnswerComponent implements OnInit {
       this.survey.segmentations.forEach((element, index) => {
         segmentations.push(this.formBuilder.formGroup(new Segmentationitem()));
         this.applicationg.controls.segmentationitems['controls'][index].controls.segmentationitemId.setValue(-1);
+        this.applicationg.controls.segmentationitems['controls'][index].controls.segmentationitemName.setValue("segmentationitemName");
       });
 
       this.survey.categories.forEach((element, index) => {
         element.questions.forEach((elementt, indexx) => {
           let applicationHasQuestion = new ApplicationHasQuestion();
-          applicationHasQuestion.id.questionQuestionId = elementt.questionId;
+          applicationHasQuestion.question.questionId = elementt.questionId;
+          applicationHasQuestion.question.questionName = elementt.questionName;
           applicationHasQuestion.applicationHasQuestionvalue = -1;
           questions.push(this.formBuilder.formGroup(applicationHasQuestion));
           //console.log(this.applicationg.controls.applicationHasQuestions['controls'][indexx].controls.id.controls.questionQuestionId.setValue(elementt.questionId))
@@ -88,7 +89,7 @@ export class NewAnswerComponent implements OnInit {
     let indx: number;
     this.applicationg['controls']['applicationHasQuestions']['controls'].forEach((element, index) => {
 
-      if (element['controls']['id']['controls']['questionQuestionId'].value == id) {
+      if (element['controls']['question']['controls']['questionId'].value == id) {
         indx = index;
         //console.log("ids iguales"+ element['controls']['id']['controls']['questionQuestionId'].value+" "+id+" index"+index+" index asignado "+indx+" length"+this.applicationg['controls']['applicationHasQuestions']['controls'].length)
       }

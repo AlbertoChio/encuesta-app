@@ -1,4 +1,4 @@
-import { prop } from '@rxweb/reactive-form-validators';
+import { prop, required } from '@rxweb/reactive-form-validators';
 import { Category } from './category';
 
 export class Question {
@@ -6,7 +6,7 @@ export class Question {
   questionId?: number;
   @prop()
   questionAnswerRequired: Boolean;
-  @prop()
+  @required()
   questionName: String;
   @prop()
   questionNumber: number;

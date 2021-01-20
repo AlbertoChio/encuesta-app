@@ -1,10 +1,11 @@
-import { prop, propArray } from '@rxweb/reactive-form-validators';
+import { prop, propArray, required, unique } from '@rxweb/reactive-form-validators';
 import { Question } from './question';
 
 export class Category {
   @prop()
   categoryId?: number;
-  @prop()
+  @unique()
+  @required()
   categoryName?: String;
   @propArray(Question)
   questions?: Question[];

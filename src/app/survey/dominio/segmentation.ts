@@ -1,12 +1,13 @@
 import { Segmentationitem } from './segmentationitem';
-import { prop, propObject, propArray } from "@rxweb/reactive-form-validators"
+import { prop, propObject, propArray, required, unique } from "@rxweb/reactive-form-validators"
 
 export class Segmentation {
   @prop()
   segmentationId?: number;
-  @prop()
+  @required()
+  @unique()
   segmentationName?: String;
-
+  @propArray(Segmentationitem)
   segmentationitems?: Segmentationitem[];
 
   constructor(data?) {

@@ -1,0 +1,128 @@
+<app-menu></app-menu>
+<div class="container">
+  <form [formGroup]="surveyg" (ngSubmit)="onSubmit(surveyg.value)">
+    <div class="card">
+      <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+          <li class="nav-item">
+            <a class="nav-link active">Datos de Encuesta</a>
+          </li>
+          <li class="nav-item">
+            <a ng2-ngIf class="nav-link" routerLink="/new-survey-users" >Encuestados</a>
+          </li>
+        </ul>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <label>Ingresa el nombre de la encuesta</label>
+          <input type="text" class="form-control" formControlName="surveyName" placeholder="Nombre de la encuesta">
+        </div>
+        <div class="form-group">
+          <label>Ingresa descripción de la encuesta</label>
+          <input type="text" class="form-control" formControlName="surveyDescription" placeholder="Descripción de la encuesta">
+        </div>
+        <div class="form-group">
+          <label class="d-block mt-5">Selecciona un rango de fechas en el que estara disponible para responder la encuesta</label>
+          <mat-form-field appearance="fill">
+            <mat-label>Rango de fechas</mat-label>
+            <mat-date-range-input [formGroup]="surveyg" [rangePicker]="picker">
+              <input matStartDate formControlName="surveyStartDate" placeholder="Fecha de inicio">
+              <input matEndDate formControlName="surveyExpirationDate" placeholder="Fecha de de termino">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+            <mat-error *ngIf="surveyg.controls.surveyStartDate.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+            <mat-error *ngIf="surveyg.controls.surveyExpirationDate.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <label class="card-title">Segmentaciones</label>
+            <button (click)="addSegmentation()" class="btn"><i><span class="material-icons">control_point</span></i></button>
+          </div>
+          <div class="card-body">
+            <div class="card mt-3 ml-3 mb-3" [formGroup]="segmentationfg" *ngFor="let segmentationfg of surveyg.controls.segmentations['controls']; let i = index">
+              <div class="card-header">
+                <label class="card-title">Segmentación</label>
+                <button (click)="removeSegmentation(i)" *ngIf="surveyg.controls.segmentations.length>1" class="btn"><i><span class="material-icons">remove_circle_outline</span></i></button>
+              </div>
+              <div class="card-body">
+                <div class="form-group">
+                  <label>Ingresa el nombre de la segmentacón</label>
+                  <input type="text" class="form-control" formControlName="segmentationName" placeholder="Nombre de la segmentación">
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    <label class="card-title">Items de segmentación</label>
+                    <button (click)="addSegmentationitem(i)" class="btn"><i><span class="material-icons">control_point</span></i></button>
+                  </div>
+                  <div class="card-body">
+                    <div class="card" [formGroup]="itemfg" *ngFor="let itemfg of segmentationfg.controls.segmentationitems['controls']; let i1 = index">
+                      <div class="card-body">
+                        <div class="form-group">
+                          <label>Ingresa el nombre del item de segmentación </label>
+                          <div class="input-group">
+                            <input type="text" class="form-control" formControlName="segmentationitemName" placeholder="Nombre del item de segmentación">
+                            <div class="input-group-append">
+                              <button (click)="removeSegmentationitem(i1,i)" *ngIf="this.surveyg.controls.segmentations['controls'][i]['controls']['segmentationitems'].length>1" class="btn"><i><span
+                                    class="material-icons">remove_circle_outline</span></i></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card mt-3">
+          <div class="card-header">
+            <label class="card-title">Categorias</label>
+            <button (click)="addCategory()" class="btn"><i><span class="material-icons">control_point</span></i></button>
+          </div>
+          <div class="card-body">
+            <div class="card mt-3 ml-3 mb-3" [formGroup]="categoryfg" *ngFor="let categoryfg of surveyg.controls.categories['controls']; let i = index">
+              <div class="card-header">
+                <label class="card-title">Categoría</label>
+                <button (click)="removeCategory(i)" *ngIf="surveyg.controls.categories.length>1" class="btn"><i><span class="material-icons">remove_circle_outline</span></i></button>
+              </div>
+              <div class="card-body">
+                <div class="form-group">
+                  <label>Ingresa el nombre de la categoría</label>
+                  <input type="text" class="form-control" formControlName="categoryName" placeholder="Nombre de la categoría">
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    <label class="card-title">Preguntas</label>
+                    <button (click)="addQuestion(i)" class="btn"><i><span class="material-icons">control_point</span></i></button>
+                  </div>
+                  <div class="card-body">
+                    <div class="card" [formGroup]="questionfg" *ngFor="let questionfg of categoryfg.controls.questions['controls']; let i1 = index">
+                      <div class="card-body">
+                        <div class="form-group">
+                          <label>Ingresa el nombre de la pregunta</label>
+                          <div class="input-group">
+                            <input type="text" class="form-control" formControlName="questionName" placeholder="Nombre de la pregunta">
+                            <div class="input-group-append">
+                              <button (click)="removeQuestion(i1,i)" *ngIf="this.surveyg['controls']['categories']['controls'][i]['controls']['questions'].length>1" class="btn"><i><span class="material-icons">remove_circle_outline</span></i></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      <button class="boton" [disabled]="!surveyg.valid " type="submit" class="btn btn-primary ">Enviar</button>
+  </form>
+</div>
+
+
+<pre>{{surveyg?.value | json}}</pre>

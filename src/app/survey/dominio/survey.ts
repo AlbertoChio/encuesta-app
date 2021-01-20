@@ -1,6 +1,6 @@
 import { Question } from 'src/app/question/dominio/question';
 import { Segmentation } from './segmentation';
-import { prop, propObject, propArray } from "@rxweb/reactive-form-validators"
+import { prop, propObject, propArray, required } from "@rxweb/reactive-form-validators"
 import { Category } from 'src/app/question/dominio/category';
 import { catchError, map } from "rxjs/operators";
 import { Surveyparticipant } from './surveyparticipant';
@@ -9,34 +9,33 @@ import { Surveyparticipant } from './surveyparticipant';
 export class Survey {
   @prop()
   surveyId?: number;
-
+  @required()
   surveyDescription?: String;
 
   surveyExitMessage?: String;
 
+  @required()
   surveyExpirationDate?: String;
-  @prop()
+  @required()
   surveyName?: String;
 
   surveyPublicationDate?: String;
-
+  @required()
   surveyStartDate?: String;
 
   surveyWelcomeMessage?: String;
-
+  @propArray(Category)
   categories?: Category[];
 
   @propArray(Segmentation)
   segmentations?: Segmentation[];
 
-  allowMultipleApplications?:String;
-
+  @prop()
   surveyparticipants?: Surveyparticipant[];
 
   constructor(data?) {
     if (data) {
       if(data.surveyparticipants){
-        this.allowMultipleApplications = data.allowMultipleApplications;
         this.surveyparticipants=data.surveyparticipants;
       }
       this.surveyDescription = data.surveyDescription;
@@ -60,13 +59,5 @@ export class Survey {
       this.categories = [new Category()];
       this.segmentations = [new Segmentation()];
     }
-
   }
-  /**
-* Creates an instance of documenter.
-public constructor(data?:Survey){
-
-}
-*/
-
 }
