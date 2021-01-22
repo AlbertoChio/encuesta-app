@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RxFormBuilder } from '@rxweb/reactive-form-validators';
@@ -10,15 +10,18 @@ import { Segmentation } from '../../dominio/segmentation';
 import { Segmentationitem } from '../../dominio/segmentationitem';
 import { Survey } from '../../dominio/survey';
 import { SurveyService } from '../../infraestructura/survey.service';
-
 import { SessionStorageService } from '../../infraestructura/session-storage.service';
+
+
 
 @Component({
   selector: 'app-new-survey',
   templateUrl: './new-survey.component.html',
-  styleUrls: ['./new-survey.component.css']
+   styleUrls: ['./new-survey.component.css']
 })
+
 export class NewSurveyComponent implements OnInit {
+
   surveyg: FormGroup;
   survey: Survey = new Survey();
 
@@ -41,20 +44,25 @@ export class NewSurveyComponent implements OnInit {
        this.surveyg.valueChanges.subscribe(selectedValue  => {
          this.storage.setSurveyfg(selectedValue)
   })
-
-
-
 }
 
-  onSubmit(content) {
+  async onSubmit(content) {
+    this.storage.clearSurveyfg();
 this.surveyService.surveyadminsubmitSurveyNewSurveyDto(content).subscribe(
-        data => {
-          console.log(data)
-        },
-        err => {
-          console.log(err);
-        }
-      );
+  data => {
+    this.toastr.success(data.mensaje, 'OK', {
+      timeOut: 3000, positionClass: 'toast-top-center'
+    });
+    this.router.navigate(['/']);
+  },
+  err => {
+    this.surveyg = this.formBuilder.formGroup(this.survey);
+    this.toastr.error(err.error.mensaje, 'Fail', {
+      timeOut: 3000, positionClass: 'toast-top-center',
+    });
+      this.router.navigate(['/']);
+  }
+);
   }
 
   addCategory() {
@@ -97,4 +105,7 @@ this.surveyService.surveyadminsubmitSurveyNewSurveyDto(content).subscribe(
     items.removeAt((i1));
   }
 
+que(){
+
+}
 }

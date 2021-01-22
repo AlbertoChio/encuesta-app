@@ -21,7 +21,7 @@ export class NewSurveyUsersComponent implements OnInit {
   surveyg: FormGroup;
   survey: Survey = new Survey();
   users: string[] = [''];
-  surveyedl: string[] = [];
+  surveyedl= [];
   constructor(
     private surveyService: SurveyService,
     private activatedRoute: ActivatedRoute,
@@ -41,7 +41,6 @@ export class NewSurveyUsersComponent implements OnInit {
       if (this.surveyg.controls.surveyparticipants.value != null && this.surveyg.controls.surveyparticipants.value) {
         this.surveyedl = this.surveyg.controls.surveyparticipants.value
       }
-
     }
     this.surveyg.valueChanges.subscribe(selectedValue => {
       this.storage.setSurveyfg(selectedValue)
@@ -59,7 +58,7 @@ export class NewSurveyUsersComponent implements OnInit {
           });
           if (this.surveyg.controls.surveyparticipants.value != null && this.surveyg.controls.surveyparticipants.value) {
             this.surveyg.controls.surveyparticipants.value.forEach(element => {
-              this.users = this.users.filter((e) => !e.includes(element))
+              this.users = this.users.filter((e) => !e.includes(element.usuario))
             });
           }
         },
@@ -72,7 +71,7 @@ export class NewSurveyUsersComponent implements OnInit {
   transferusers(a: MatSelectionList) {
     const users = a.selectedOptions.selected.map((a) => a.value)
     users.forEach(element => {
-      this.surveyedl.push(element)
+      this.surveyedl.push({"usuario":element})
       this.users = this.users.filter((e) => !e.includes(element))
     });
     this.surveyg.controls.surveyparticipants.setValue(this.surveyedl)
@@ -81,11 +80,11 @@ export class NewSurveyUsersComponent implements OnInit {
   transfersurveyed(a: MatSelectionList) {
     const surveyedl = a.selectedOptions.selected.map((a) => a.value)
     surveyedl.forEach(element => {
-      this.users.push(element)
-      this.surveyedl = this.surveyedl.filter((e) => !e.includes(element))
-    });
+        this.users.push(element)
+        this.surveyedl=this.surveyedl.filter((e)=> e.usuario!=element)
     this.surveyg.controls.surveyparticipants.setValue(this.surveyedl)
-  }
+});
+}
 
   selectAllUsers() {
     this.usersSelectionList.selectAll()

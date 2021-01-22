@@ -30,9 +30,11 @@
             <div class="card-body flex-fill">
               <button *ngIf="surveyedl.length>0" (click)="selectAllSurveyed()" class="btn"><i><span class="material-icons">fact_check</span></i></button>
               <mat-selection-list #encuestados>
-                <mat-list-option *ngFor="let surveyed of surveyedl" [value]="surveyed">
-                  {{surveyed}}
+
+                <mat-list-option *ngFor="let usuario of surveyedl" [value]="usuario.usuario">
+                  {{usuario.usuario}}
                 </mat-list-option>
+
               </mat-selection-list>
               <button *ngIf="surveyedl.length>0" (click)="transfersurveyed(encuestados)" class="btn"><i><span class="material-icons">reply</span></i></button>
           </div>
