@@ -9,11 +9,9 @@ const SURVEY_FORMGROUP = 'SurveyFormGoup';
 })
 export class SessionStorageService {
 
-  private surveyg: Survey;
-
   constructor() { }
 
-  public setSurveyfg(surveyfg: FormGroup): void {
+  public setSurveyfg(surveyfg: any): void {
     window.sessionStorage.removeItem(SURVEY_FORMGROUP);
     window.sessionStorage.setItem(SURVEY_FORMGROUP, JSON.stringify(surveyfg))
   }

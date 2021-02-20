@@ -1,33 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Survey } from '../../dominio/survey';
 import { SurveyService } from '../../infraestructura/survey.service';
 import { TokenService } from 'src/app/auth/infraestructura/token.service';
 import { Surveyparticipant } from '../../dominio/surveyparticipant';
 
 @Component({
-  selector: 'app-lista-survey',
-  templateUrl: './lista-survey.component.html',
-  styleUrls: ['./lista-survey.component.css']
+  selector: 'app-lista-participations',
+  templateUrl: './lista-participations.component.html',
+  styleUrls: ['./lista-participations.component.css']
 })
-
-export class ListaSurveyComponent implements OnInit {
+export class ListaParticipationsComponent implements OnInit {
   today = new Date();
   jstoday = '';
-  surveys:Survey[];
+  surveyparticipants: Surveyparticipant[];
   roles: any[];
   isAdmin: boolean = false;
-  titulo: string = "Encuestas"
+  titulo: string = "Mis Participaciones"
   constructor(
     private surveyService: SurveyService,
     private toastr: ToastrService,
     private tokenService: TokenService,
     private activatedRoute: ActivatedRoute,
     private router: Router
-  ) {
-    this.surveys=[new Survey()];
-  }
+  ) {this.surveyparticipants = [new Surveyparticipant()]; }
 
   ngOnInit() {
     this.cargarSurveys();
@@ -35,16 +31,15 @@ export class ListaSurveyComponent implements OnInit {
   }
 
   cargarSurveys(): void {
-
-
-          this.surveyService.listaallsurveys()
+        this.surveyService
+            .lista()
             .subscribe(
               data => {
-                this.surveys = data;
+                this.surveyparticipants = data;
                 console.log(data)
               },
               err => {
-                this.surveys = null;
+                this.surveyparticipants = null;
                 console.log(err);
               }
             );

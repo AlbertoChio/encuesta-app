@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RxFormBuilder } from '@rxweb/reactive-form-validators';
@@ -11,17 +11,17 @@ import { Segmentationitem } from '../../dominio/segmentationitem';
 import { Survey } from '../../dominio/survey';
 import { SurveyService } from '../../infraestructura/survey.service';
 import { SessionStorageService } from '../../infraestructura/session-storage.service';
-import { async, fromEvent, merge, Subject } from 'rxjs';
-import { filter, take, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 import { MatSelectionList } from '@angular/material/list';
 
+
 @Component({
-  selector: 'app-new-survey',
-  templateUrl: './new-survey.component.html',
-  styleUrls: ['./new-survey.component.css']
+  selector: 'app-mod-survey',
+  templateUrl: './mod-survey.component.html',
+  styleUrls: ['./mod-survey.component.css']
 })
 
-export class NewSurveyComponent implements OnInit, OnDestroy {
+export class ModSurveyComponent implements OnInit, OnDestroy {
 
   @ViewChild('usuarios') usersSelectionList: MatSelectionList;
   @ViewChild('encuestados') surveyedSelectionList: MatSelectionList;
@@ -72,6 +72,7 @@ export class NewSurveyComponent implements OnInit, OnDestroy {
           this.survey.surveyExpirationDate = ""
           this.survey.surveyStartDate = ""
           this.survey.surveyparticipants = data.surveyparticipants
+          this.surveyedl= data.surveyparticipants
           this.surveyg = this.formBuilder.formGroup(this.survey);
           this.storage.clearSurveyfg();
         },
@@ -139,10 +140,9 @@ export class NewSurveyComponent implements OnInit, OnDestroy {
       );
   }
 
-
   onSubmit(content) {
     this.storage.clearSurveyfg();
-    this.surveyService.surveyadminsubmitSurveyNewSurveyDto(content).subscribe(
+    this.surveyService.surveyadminsubmitSurveyUpdateSurveyDto(content,this.surveyname).subscribe(
       data => {
         this.toastr.success(data.mensaje, 'OK', {
           timeOut: 3000, positionClass: 'toast-top-center'

@@ -26,7 +26,6 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ChartsComponent } from './survey/aplicacion/charts/charts.component';
 import { ChartsModule } from 'ng2-charts';
 import { NewSurveyComponent } from './survey/aplicacion/new-survey/new-survey.component';
-import { NewSurveyUsersComponent } from './survey/aplicacion/new-survey/new-survey-users.component';
 
 
 import { A11yModule } from '@angular/cdk/a11y';
@@ -72,9 +71,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { OverlayModule } from '@angular/cdk/overlay';
-
-
-
+import { ListaParticipationsComponent } from './survey/aplicacion/lista-participations/lista-participations.component';
+import { ModSurveyComponent } from './survey/aplicacion/mod-survey/mod-survey.component';
+import { AddUsuariosComponent } from './survey/aplicacion/usuario/add-usuarios/add-usuarios.component';
 
 schemas: [
   CUSTOM_ELEMENTS_SCHEMA
@@ -94,7 +93,9 @@ registerLocaleData(localeES, 'es');
     NewAnswerComponent,
     ChartsComponent,
     NewSurveyComponent,
-    NewSurveyUsersComponent,
+    ListaParticipationsComponent,
+    ModSurveyComponent,
+    AddUsuariosComponent,
   ],
   imports: [RxReactiveFormsModule,
     BrowserModule,

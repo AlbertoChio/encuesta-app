@@ -18,8 +18,6 @@ const httpOptions = {
 
 export class SurveyService {
   constructor(private httpClient: HttpClient) { }
-
-
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
@@ -48,13 +46,19 @@ export class SurveyService {
     );
   }
 
+  public listaallsurveys(): Observable<any> {
+    return this.httpClient.get('http://localhost:8080/api/encuestas', httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError)
+    );
+  }
+
   public surveyuserParticipantRequestSurvey(surveyname: String): Observable<any> {
     return this.httpClient.get('http://localhost:8080/api/encuesta/' + `answer/${surveyname}`, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError)
     );
   }
-
 
   public surveyuserParticipantSubmitAsnwer(submit, encuesta: String): Observable<any> {
     return this.httpClient.post('http://localhost:8080/api/create/' + encuesta, submit).pipe(
@@ -77,6 +81,13 @@ export class SurveyService {
     );
   }
 
+  public surveyadminrequestSurveyNewSurveyDto(surveyname: String):Observable<any> {
+    return this.httpClient.get('http://localhost:8080/api/encuesta/encuesta-creation/'+`${surveyname}`, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError)
+    );
+  }
+
   public surveyadminsubmitSurveyNewSurveyDto(submit):Observable<any> {
     return this.httpClient.post('http://localhost:8080/api/encuesta/new-encuesta',submit).pipe(
       map(this.extractData),
@@ -84,4 +95,10 @@ export class SurveyService {
     );
   }
 
+  public surveyadminsubmitSurveyUpdateSurveyDto(submit,surveyname: String):Observable<any> {
+    return this.httpClient.put('http://localhost:8080/api/encuesta/encuesta-creation/'+`${surveyname}`,submit).pipe(
+      map(this.extractData),
+      catchError(this.handleError)
+    );
+  }
 }

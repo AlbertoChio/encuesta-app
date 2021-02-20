@@ -38,6 +38,7 @@ export class Survey {
       if(data.surveyparticipants){
         this.surveyparticipants=data.surveyparticipants;
       }
+      this.surveyId=data.surveyId;
       this.surveyDescription = data.surveyDescription;
       this.surveyExitMessage = data.surveyExitMessage;
       this.surveyExpirationDate = data.surveyExpirationDate;

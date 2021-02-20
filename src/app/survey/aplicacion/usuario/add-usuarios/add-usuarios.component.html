@@ -1,0 +1,28 @@
+<app-menu></app-menu>
+<div class="container">
+  <input type="file" #csvReader name="Upload CSV" id="txtFileUpload" (change)="uploadListener($event)" accept=".csv" />
+    <form [formGroup]="NuevoUsuariofg" (ngSubmit)="onSubmit(NuevoUsuariofg.value)" *ngIf="NuevoUsuariofg">
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">
+          <p class="mat-h3 ">Nombre </p>
+        </th>
+        <th scope="col">
+          <p class="mat-h3 ">Contraseña </p>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr *ngFor="let formGroup of NuevoUsuariofg.controls['usuarios']['controls'];let i = index;">
+            <ng-container [formGroup]="formGroup">
+            <td class="text-center"> <input type="text" class="form-control" formControlName="nombreUsuario" placeholder="Nombre"> </td>
+            <td class="text-center"> <input type="text" class="form-control" formControlName="password" placeholder="Password"> </td>
+            </ng-container>
+          </tr>
+    </tbody>
+  </table>
+    <button class="boton" [disabled]="!NuevoUsuariofg.valid " type="submit" class="btn btn-primary ">Enviar</button>
+  <pre>{{NuevoUsuariofg?.value | json }}</pre>
+</form>
+</div>
