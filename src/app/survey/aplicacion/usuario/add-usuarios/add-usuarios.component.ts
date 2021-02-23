@@ -14,6 +14,7 @@ import { CSVRecord } from './CSVRecord';
 import { Application } from 'src/app/survey/dominio/application';
 import { NuevosUsuarios } from 'src/app/auth/dominio/nuevos-usuarios';
 import { NuevoUsuario } from 'src/app/auth/dominio/nuevo-usuario';
+import { AuthService } from 'src/app/auth/infraestructura/auth.service';
 
 @Component({
   selector: 'app-add-usuarios',
@@ -33,9 +34,10 @@ export class AddUsuariosComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private tokenService: TokenService,
-    private formBuilder: RxFormBuilder
+    private formBuilder: RxFormBuilder,
+    private authService: AuthService,
+
   ) {
-    this.application = new Application();
     this.NuevosUsuarios= new NuevosUsuarios();
     this.NuevoUsuariofg = this.formBuilder.formGroup(this.NuevosUsuarios);
   }
@@ -109,5 +111,23 @@ export class AddUsuariosComponent implements OnInit {
   }
     onSubmit(customerData) {
       console.log(customerData);
+
+      this.authService.nuevos(customerData).subscribe(
+        data => {
+          this.toastr.success('Usuarios guardados correctamente ', 'OK', {
+            timeOut: 3000, positionClass: 'toast-top-center'
+          });
+        },
+        err => {
+          //this.survey = null;
+          this.toastr.error(err.error.mensaje, 'Fail', {
+            timeOut: 3000, positionClass: 'toast-top-center',
+          });
+          console.log(err.error.message);
+
+          //this.router.navigate(['/']);
+        }
+      );
+
     }
 }

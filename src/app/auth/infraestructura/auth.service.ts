@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { NuevoUsuario } from '../dominio/nuevo-usuario';
 import { LoginUsuario } from '../dominio/login-usuario';
 import { JwtDTO } from '../dominio/jwt-dto';
+import { NuevosUsuarios } from '../dominio/nuevos-usuarios';
 
 
 @Injectable({
@@ -11,7 +12,7 @@ import { JwtDTO } from '../dominio/jwt-dto';
 })
 export class AuthService {
 
-  authURL = 'http://localhost:8080/auth/';
+  authURL = 'https://aws-app.excellentraining.com/auth/';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -21,5 +22,9 @@ export class AuthService {
 
   public login(loginUsuario: LoginUsuario): Observable<JwtDTO> {
     return this.httpClient.post<JwtDTO>(this.authURL + 'login', loginUsuario);
+  }
+
+  public nuevos(nuevosUsuarios: NuevosUsuarios): Observable<any> {
+    return this.httpClient.post<any>(this.authURL + 'nuevos', nuevosUsuarios);
   }
 }

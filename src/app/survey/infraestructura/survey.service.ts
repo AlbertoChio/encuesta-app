@@ -37,7 +37,7 @@ export class SurveyService {
     return body || {};
   }
 
-  surveyURL = 'http://localhost:8080/api/applications/';
+  surveyURL = 'https://aws-app.excellentraining.com/api/applications/';
 
   public lista(): Observable<any> {
     return this.httpClient.get(this.surveyURL, httpOptions).pipe(
@@ -47,56 +47,56 @@ export class SurveyService {
   }
 
   public listaallsurveys(): Observable<any> {
-    return this.httpClient.get('http://localhost:8080/api/encuestas', httpOptions).pipe(
+    return this.httpClient.get('https://aws-app.excellentraining.com/api/encuestas', httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError)
     );
   }
 
   public surveyuserParticipantRequestSurvey(surveyname: String): Observable<any> {
-    return this.httpClient.get('http://localhost:8080/api/encuesta/' + `answer/${surveyname}`, httpOptions).pipe(
+    return this.httpClient.get('https://aws-app.excellentraining.com/api/encuesta/' + `answer/${surveyname}`, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError)
     );
   }
 
   public surveyuserParticipantSubmitAsnwer(submit, encuesta: String): Observable<any> {
-    return this.httpClient.post('http://localhost:8080/api/create/' + encuesta, submit).pipe(
+    return this.httpClient.post('https://aws-app.excellentraining.com/api/create/' + encuesta, submit).pipe(
       map(this.extractData),
       catchError(this.handleError)
     );
   }
 
   public surveyuserParticipantRequestSurveyChartInfo(surveyname: String): Observable<any> {
-    return this.httpClient.get('http://localhost:8080/api/encuesta/chart/' + `${surveyname}`, httpOptions).pipe(
+    return this.httpClient.get('https://aws-app.excellentraining.com/api/encuesta/chart/' + `${surveyname}`, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError)
     );
   }
 
   public surveyadminRequestUsersInfo(): Observable<any> {
-    return this.httpClient.get('http://localhost:8080/api/usuarios', httpOptions).pipe(
+    return this.httpClient.get('https://aws-app.excellentraining.com/api/usuarios', httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError)
     );
   }
 
   public surveyadminrequestSurveyNewSurveyDto(surveyname: String):Observable<any> {
-    return this.httpClient.get('http://localhost:8080/api/encuesta/encuesta-creation/'+`${surveyname}`, httpOptions).pipe(
+    return this.httpClient.get('https://aws-app.excellentraining.com/api/encuesta/encuesta-creation/'+`${surveyname}`, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError)
     );
   }
 
   public surveyadminsubmitSurveyNewSurveyDto(submit):Observable<any> {
-    return this.httpClient.post('http://localhost:8080/api/encuesta/new-encuesta',submit).pipe(
+    return this.httpClient.post('https://aws-app.excellentraining.com/api/encuesta/new-encuesta',submit).pipe(
       map(this.extractData),
       catchError(this.handleError)
     );
   }
 
   public surveyadminsubmitSurveyUpdateSurveyDto(submit,surveyname: String):Observable<any> {
-    return this.httpClient.put('http://localhost:8080/api/encuesta/encuesta-creation/'+`${surveyname}`,submit).pipe(
+    return this.httpClient.put('https://aws-app.excellentraining.com/api/encuesta/encuesta-creation/'+`${surveyname}`,submit).pipe(
       map(this.extractData),
       catchError(this.handleError)
     );
