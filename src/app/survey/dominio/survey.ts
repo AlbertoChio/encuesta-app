@@ -47,8 +47,23 @@ export class Survey {
       this.surveyStartDate = data.surveyStartDate;
       this.surveyWelcomeMessage = data.surveyWelcomeMessage;
       this.categories = data.categories;
-      this.segmentations = data.segmentations;
-    }
+
+
+      this.categories = data.categories.sort((a, b) =>  {if (a.categoryId < b.categoryId) {return -1;}if (a.categoryId>b.categoryId){return 1;}})
+
+      this.categories.forEach(element => {
+      element.questions=element.questions.sort((a, b) =>  {if (a.questionNumber < b.questionNumber) {return -1;}if (a.questionNumber>b.questionNumber){return 1;}})
+      });
+      
+      this.segmentations =data.segmentations;
+
+      data.segmentations=data.segmentations.sort((a, b) =>  {if (a.segmentationId < b.segmentationId) {return -1;}if (a.segmentationId>b.segmentationId){return 1;}})
+      this.segmentations.forEach(element => {
+      element.segmentationitems=element.segmentationitems.sort((a, b) =>  {if (a.segmentationitemNumber < b.segmentationitemNumber) {return -1;}if (a.segmentationitemNumber>b.segmentationitemNumber){return 1;}})
+      });
+
+
+ }
     else {
       this.surveyDescription = null;
       this.surveyExitMessage = null;

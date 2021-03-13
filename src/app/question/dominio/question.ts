@@ -17,7 +17,7 @@ export class Question {
   constructor() {
     this.questionAnswerRequired = null;
     this.questionName = null;
-    this.questionNumber = null;
+    this.questionNumber = 0;
     this.questionText = null;
   }
 }

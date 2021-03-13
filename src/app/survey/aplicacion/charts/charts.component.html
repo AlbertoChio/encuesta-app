@@ -62,9 +62,10 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="">
-      <canvas baseChart baseChart width="270" height="270" [colors]="cbarChartColors" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
-      </canvas>
-    </div>
+  </div>
+  <div style="display: block">
+    <canvas baseChart baseChart  height="400"
+      width="600" [colors]="cbarChartColors" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+    </canvas>
   </div>
 </div>

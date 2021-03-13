@@ -84,10 +84,19 @@ export class ChartsComponent implements OnInit {
 
   public barChartOptions: ChartOptions = {
     responsive: true,
+    maintainAspectRatio: false,
     // We use these empty structures as placeholders for dynamic theming.
-    scales: { xAxes: [{}], yAxes: [{}] },
+    scales: { xAxes: [{}], yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+               max : 6,
+          }
+        }
+      ] },
     plugins: {
       datalabels: {
+        clamp:true,
         anchor: 'end',
         align: 'end',
       }
@@ -178,7 +187,7 @@ export class ChartsComponent implements OnInit {
     });
     filteredapplications = filteredapplications.filter((e) => e.length > 0)
     this.selectedcategoriesfilter[1].questions.forEach((element, index) => {
-      this.barChartLabels.push(element.questionName)
+      this.barChartLabels.push(element.questionName.substr(0,30)+"...")
     });
     this.selectedcategoriesfilter[1].questions.forEach((element,indexa) => {
     this.barChartData[0].data.push(0)

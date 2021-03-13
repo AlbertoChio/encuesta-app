@@ -171,12 +171,24 @@ export class ModSurveyComponent implements OnInit, OnDestroy {
 
   addQuestion(i: number) {
     let questions = <FormArray>this.surveyg.controls.categories['controls'][i]['controls']['questions'];
-    questions.push(this.formBuilder.formGroup(new Question()));
+    let pregunta:Question=new Question()
+    pregunta.questionNumber=this.getlastquestionnumber(i)+1;
+    questions.push(this.formBuilder.formGroup(pregunta));
   }
 
   removeQuestion(i1: number, i: number) {
     let questions = <FormArray>this.surveyg.controls.categories['controls'][i]['controls']['questions'];
     questions.removeAt((i1));
+  }
+
+  getlastquestionnumber(i:number):number{
+    let count=0;
+    this.surveyg.controls.categories['controls'][i]['controls']['questions']['controls'].forEach(element => {
+      if(count<element.value.questionNumber){
+        count =element.value.questionNumber
+      }
+    });
+    return count;
   }
 
   addSegmentation() {

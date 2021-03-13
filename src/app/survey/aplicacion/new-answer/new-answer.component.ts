@@ -46,6 +46,7 @@ export class NewAnswerComponent implements OnInit {
     const surveyname = this.activatedRoute.snapshot.params.surveyname;
     this.surveyService.surveyuserParticipantRequestSurvey(surveyname).subscribe(
       data => {
+        console.log(data);
         this.survey = new Survey(data)
         this.cargarform();
         console.log(this.survey);
@@ -99,7 +100,7 @@ export class NewAnswerComponent implements OnInit {
   }
 
   que() {
-    console.log(this.applicationg['controls']['applicationHasQuestions']['controls']);
+    console.log(this.applicationg);
   }
 
   onSubmit(customerData) {

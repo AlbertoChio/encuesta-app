@@ -15,30 +15,29 @@
           <input type="text" class="form-control" formControlName="surveyName" placeholder="Nombre de la encuesta">
         </div>
         <div class="form-group">
-          <label>Ingresa descripción de la encuesta</label>
-          <input type="text" class="form-control" formControlName="surveyDescription" placeholder="Descripción de la encuesta">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">With textarea</span>
+            </div>
+            <textarea class="form-control" formControlName="surveyDescription" aria-label="With textarea"></textarea>
+          </div>
         </div>
         <div class="form-group">
+          <ng-container *ngIf="surveyg.controls.surveyStartDate.value!=null">
+            <label class="d-block mt-5">Selecciona un rango de fechas en el que estara disponible para responder la encuesta</label>
+            <mat-form-field appearance="fill">
+              <mat-label>Rango de fechas</mat-label>
+              <mat-date-range-input [formGroup]="surveyg" [rangePicker]="picker">
+                <input matStartDate formControlName="surveyStartDate" placeholder="Fecha de inicio">
+                <input matEndDate formControlName="surveyExpirationDate" placeholder="Fecha de de termino">
+              </mat-date-range-input>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+              <mat-error *ngIf="surveyg.controls.surveyStartDate.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+              <mat-error *ngIf="surveyg.controls.surveyExpirationDate.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+            </mat-form-field>
 
-
-          <ng-container *ngIf="surveyg.controls.surveyStartDate.value!=null" >
-
-
-
-          <label class="d-block mt-5">Selecciona un rango de fechas en el que estara disponible para responder la encuesta</label>
-          <mat-form-field appearance="fill">
-            <mat-label>Rango de fechas</mat-label>
-            <mat-date-range-input [formGroup]="surveyg" [rangePicker]="picker">
-              <input matStartDate formControlName="surveyStartDate" placeholder="Fecha de inicio">
-              <input matEndDate formControlName="surveyExpirationDate" placeholder="Fecha de de termino">
-            </mat-date-range-input>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
-            <mat-error *ngIf="surveyg.controls.surveyStartDate.hasError('matStartDateInvalid')">Invalid start date</mat-error>
-            <mat-error *ngIf="surveyg.controls.surveyExpirationDate.hasError('matEndDateInvalid')">Invalid end date</mat-error>
-          </mat-form-field>
-
-                </ng-container>
+          </ng-container>
         </div>
         <div class="card">
           <div class="card-header">
@@ -154,20 +153,20 @@
 
             <div class="card bg-light m-3" style="max-width: 18rem;">
               <div class="card-header">Registrar</div>
-                  <div class="card-body flex-fill">
-                    <button *ngIf="surveyedl.length>0" type="button" (click)="selectAllSurveyed()" class="btn"><i><span class="material-icons">fact_check</span></i></button>
-                    <mat-selection-list #encuestados>
+              <div class="card-body flex-fill">
+                <button *ngIf="surveyedl.length>0" type="button" (click)="selectAllSurveyed()" class="btn"><i><span class="material-icons">fact_check</span></i></button>
+                <mat-selection-list #encuestados>
 
-                      <mat-list-option *ngFor="let usuario of surveyedl" [value]="usuario">
-                        {{usuario.usuario}}
-                      </mat-list-option>
+                  <mat-list-option *ngFor="let usuario of surveyedl" [value]="usuario">
+                    {{usuario.usuario}}
+                  </mat-list-option>
 
-                    </mat-selection-list>
-                    <button *ngIf="surveyedl.length>0" type="button" (click)="transfersurveyed(encuestados)" class="btn"><i><span class="material-icons">reply</span></i></button>
-                </div>
+                </mat-selection-list>
+                <button *ngIf="surveyedl.length>0" type="button" (click)="transfersurveyed(encuestados)" class="btn"><i><span class="material-icons">reply</span></i></button>
               </div>
+            </div>
+          </div>
         </div>
-      </div>
 
 
 

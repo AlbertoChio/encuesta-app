@@ -120,18 +120,11 @@ export class NewSurveyComponent implements OnInit, OnDestroy {
         data => {
           console.log(data);
           this.users=data
-          console.log(this.users);
-
           if (this.surveyg.controls.surveyparticipants.value != null && this.surveyg.controls.surveyparticipants.value) {
             this.surveyg.controls.surveyparticipants.value.forEach(element => {
-
-
               this.users = this.users.filter((e) => !e['usuario'].includes(element.usuario))
             });
           }
-
-          console.log(this.surveyedl);
-
         },
         err => {
           console.log(err);
@@ -171,12 +164,24 @@ export class NewSurveyComponent implements OnInit, OnDestroy {
 
   addQuestion(i: number) {
     let questions = <FormArray>this.surveyg.controls.categories['controls'][i]['controls']['questions'];
-    questions.push(this.formBuilder.formGroup(new Question()));
+    let pregunta:Question=new Question()
+    pregunta.questionNumber=this.getlastquestionnumber(i)+1;
+    questions.push(this.formBuilder.formGroup(pregunta));
   }
 
   removeQuestion(i1: number, i: number) {
     let questions = <FormArray>this.surveyg.controls.categories['controls'][i]['controls']['questions'];
     questions.removeAt((i1));
+  }
+
+  getlastquestionnumber(i:number):number{
+    let count=0;
+    this.surveyg.controls.categories['controls'][i]['controls']['questions']['controls'].forEach(element => {
+      if(count<element.value.questionNumber){
+        count =element.value.questionNumber
+      }
+    });
+    return count;
   }
 
   addSegmentation() {
@@ -186,7 +191,9 @@ export class NewSurveyComponent implements OnInit, OnDestroy {
 
   addSegmentationitem(i: number) {
     let items = <FormArray>this.surveyg.controls.segmentations['controls'][i]['controls']['segmentationitems'];
-    items.push(this.formBuilder.formGroup(new Segmentationitem()));
+    let itemsegmentacion:Segmentationitem=new Segmentationitem()
+    itemsegmentacion.segmentationitemNumber=this.getlastsegmentationitemnumber(i)+1;
+    items.push(this.formBuilder.formGroup(itemsegmentacion));
   }
 
   removeSegmentation(i: number) {
@@ -199,6 +206,19 @@ export class NewSurveyComponent implements OnInit, OnDestroy {
     items.removeAt((i1));
   }
 
+  getlastsegmentationitemnumber(i:number):number{
+    let count=0;
+    this.surveyg.controls.segmentations['controls'][i]['controls']['segmentationitems']['controls'].forEach(element => {
+      console.log(element);
+
+      if(count<element.value.segmentationitemNumber){
+        count =element.value.segmentationitemNumber
+      }
+    });
+    return count;
+  }
+
+
   transferusers(a: MatSelectionList) {
   const users = a.selectedOptions.selected.map((a) => a.value)
   users.forEach(element => {
@@ -207,22 +227,16 @@ export class NewSurveyComponent implements OnInit, OnDestroy {
     this.users = this.users.filter((e) => !e['usuario'].includes(element.usuario))
 
   });
-  console.log(this.surveyedl);
-
   this.surveyg.controls.surveyparticipants.setValue(this.surveyedl)
 }
 
 transfersurveyed(a: MatSelectionList) {
   const surveyedl = a.selectedOptions.selected.map((a) => a.value)
   surveyedl.forEach(element => {
-    console.log(element);
-
       this.users.push({"usuarioId":element.usuarioId,"usuario":element.usuario})
       this.surveyedl=this.surveyedl.filter((e) => !e['usuario'].includes(element.usuario))
   this.surveyg.controls.surveyparticipants.setValue(this.surveyedl)
 });
-console.log(this.users);
-console.log(this.surveyedl);
 }
 
 selectAllUsers() {
